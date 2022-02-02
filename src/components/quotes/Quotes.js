@@ -12,6 +12,7 @@ const Quotes = () => {
     await fetch(`http://127.0.0.1:8000/api/movie/${params.id}`)
       .then((res) => res.json())
       .then((result) => {
+        console.log('result', result);
         setMovie(result);
       });
     await setIsLoading(true);
@@ -45,7 +46,7 @@ const Quotes = () => {
   }
 
   return (
-    <div className=' md:pt-36'>
+    <div className='pt-24 md:pt-36'>
       <div className='top-0 py-5 px-10 fixed w-full bg-gray-550'>
         <h2 className='flex  text-white text-5xl'>
           {isLoading && movie.name.en}

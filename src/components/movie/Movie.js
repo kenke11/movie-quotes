@@ -18,6 +18,9 @@ const Movie = () => {
           .find(() => true);
 
         setMovie(result);
+      })
+      .catch((error) => {
+        console.log('request failed', error);
       });
   }, []);
 
@@ -25,8 +28,7 @@ const Movie = () => {
     fetch(`${apiPatch}api/movies/${movie.id}/quote`)
       .then((res) => res.text())
       .then((quoteResult) => {
-        console.log(quoteResult);
-        if (quoteResult) setQuote(quoteResult);
+        if (quoteResult !== '') setQuote(JSON.parse(quoteResult));
         setIsLoading(true);
       })
       .catch((error) => {
@@ -38,7 +40,7 @@ const Movie = () => {
     ? quote.quote.en.length > 50
       ? quote.quote.en.slice(0, 49) + '...'
       : quote.quote.en
-    : 'Dont have quote';
+    : 'This movie has no quotes';
 
   return (
     <div className={'pt-32 md:pt-48'}>
