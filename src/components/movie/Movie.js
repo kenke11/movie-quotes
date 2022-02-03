@@ -1,75 +1,47 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import MovieContainer from './MovieContainer';
+import MovieError from './MovieError';
+import MovieLoader from './MovieLoader';
 
 const Movie = () => {
-  const [movie, setMovie] = useState('');
+  const [movie, setMovie] = useState([]);
   const [quote, setQuote] = useState('');
+  const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
 
   const apiPatch = 'http://127.0.0.1:8000/';
 
   useEffect(() => {
     setIsLoading(false);
-    fetch(`${apiPatch}api/movies`)
-      .then((res) => res.json())
-      .then((movies) => {
-        const result = movies
-          .sort(() => Math.random() - Math.random())
-          .find(() => true);
-
-        setMovie(result);
-      })
-      .catch((error) => {
-        console.log('request failed', error);
-      });
+    setTimeout(() => {
+      fetch(`${apiPatch}api/movies`)
+        .then((res) => res.json())
+        .then((movies) => {
+          const result = movies
+            .sort(() => Math.random() - Math.random())
+            .find(() => true);
+          setMovie(result);
+          setQuote(result.quotes);
+          setIsLoading(true);
+        })
+        .catch((error) => {
+          console.log('request failed', error);
+          setError(error);
+        });
+    }, 1500);
   }, []);
 
-  useEffect(() => {
-    fetch(`${apiPatch}api/movies/${movie.id}/quote`)
-      .then((res) => res.text())
-      .then((quoteResult) => {
-        if (quoteResult !== '') setQuote(JSON.parse(quoteResult));
-        setIsLoading(true);
-      })
-      .catch((error) => {
-        console.log('request failed', error);
-      });
-  }, [movie]);
-
-  const title = quote
-    ? quote.quote.en.length > 50
-      ? quote.quote.en.slice(0, 49) + '...'
-      : quote.quote.en
+  const quoteTitle = quote['0']
+    ? quote['0'].quote.en.length > 50
+      ? quote['0'].quote.en.slice(0, 49) + '...'
+      : quote['0'].quote.en
     : 'This movie has no quotes';
 
   return (
-    <div className={'pt-32 md:pt-48'}>
-      {isLoading && (
-        <>
-          <div>
-            <img
-              src={`${apiPatch}storage/${movie.img}`}
-              className='flex justify-center text-center m-auto rounded-xl'
-              width='700px'
-            />
-          </div>
-
-          <div className='mt-16'>
-            <h1 className='flex justify-center text-center text-white text-xl md:text-5xl'>
-              {title}
-            </h1>
-          </div>
-
-          <div className='mt-20'>
-            <Link
-              to={`movie/${movie.id}/quotes`}
-              className='flex justify-center text-white text-xl md:text-5xl underline'
-            >
-              {movie.name.en}
-            </Link>
-          </div>
-        </>
-      )}
+    <div className={'pt-20 md:pt-48'}>
+      {!isLoading && !error && <MovieLoader />}
+      {!isLoading && error && <MovieError />}
+      {isLoading && <MovieContainer movie={movie} title={quoteTitle} />}
     </div>
   );
 };

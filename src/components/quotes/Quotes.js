@@ -8,40 +8,30 @@ const Quotes = () => {
   const [isLoading, setIsLoading] = useState(false);
   const params = useParams();
 
-  const movieFetched = async () => {
-    await fetch(`http://127.0.0.1:8000/api/movie/${params.id}`)
-      .then((res) => res.json())
-      .then((result) => {
-        console.log('result', result);
-        setMovie(result);
-      });
-    await setIsLoading(true);
-  };
-
   useEffect(() => {
     setIsLoading(false);
     fetch(`http://127.0.0.1:8000/api/movie/${params.id}/quotes`)
       .then((res) => res.json())
       .then((result) => {
-        setQuotes(result);
+        setMovie(result['0']);
+        setQuotes(result['0'].quotes);
+        setIsLoading(true);
       });
-
-    movieFetched();
   }, [params.id]);
+
+  if (isLoading) console.log(movie);
+  if (isLoading) console.log(quotes);
 
   let loadedQuotes = [];
 
   for (const key in quotes) {
     loadedQuotes.push({
       id: key,
-      movie_id: params.id,
       quote: {
         en: quotes[key].quote.en,
         ge: quotes[key].quote.ka,
       },
       quote_img: quotes[key].quote_img,
-      created_at: quotes[key].created_at,
-      updated_at: quotes[key].updated_at,
     });
   }
 
@@ -53,7 +43,7 @@ const Quotes = () => {
         </h2>
       </div>
       {isLoading &&
-        loadedQuotes.map((quote) => <Quote key={quote.id} quote={quote} />)}
+        quotes.map((quote) => <Quote key={quote.id} quote={quote} />)}
     </div>
   );
 };
