@@ -1,6 +1,6 @@
 const Quote = ({ quote }) => {
   return (
-    <div key={quote.id} className='bg-white rounded-xl my-10 max-w-2xl m-auto'>
+    <div className='bg-white rounded-xl my-10 max-w-2xl m-auto'>
       <img
         className='flex justify-center text-center m-auto rounded-xl w-full'
         src={`http://127.0.0.1:8000/storage/${quote.quote_img}`}
