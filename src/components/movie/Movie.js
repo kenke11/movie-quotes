@@ -11,8 +11,6 @@ const Movie = () => {
   const [isLoading, setIsLoading] = useState(false);
   const { t, i18n } = useTranslation();
 
-  console.log('t', t('key'));
-
   const apiPatch = 'http://127.0.0.1:8000/';
 
   useEffect(() => {

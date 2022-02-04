@@ -6,13 +6,16 @@ import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
 
 import './i18next';
+import { AuthContextProvider } from './store/auth-context';
 
 ReactDOM.render(
-  <BrowserRouter>
-    <Suspense fallback={<div>Loading ~~~</div>}>
-      <App />
-    </Suspense>
-  </BrowserRouter>,
+  <AuthContextProvider>
+    <BrowserRouter>
+      <Suspense fallback={<div />}>
+        <App />
+      </Suspense>
+    </BrowserRouter>
+  </AuthContextProvider>,
   document.getElementById('root')
 );
 

@@ -1,5 +1,8 @@
 {
   "dont_have_quotes": {
     "1": "This movie has no quotes"
-  }
+  },
+  "login": "Login",
+  "email": "Email",
+  "password": "Password"
 }
