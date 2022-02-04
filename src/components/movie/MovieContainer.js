@@ -1,7 +1,10 @@
 import { Link } from 'react-router-dom';
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 
 const MovieContainer = ({ movie, title }) => {
+  const { i18n } = useTranslation('home');
+
   return (
     <>
       <div>
@@ -9,6 +12,7 @@ const MovieContainer = ({ movie, title }) => {
           src={`http://127.0.0.1:8000/storage/${movie.img}`}
           className='flex justify-center text-center m-auto rounded-xl'
           width='700px'
+          alt='movie'
         />
       </div>
 
@@ -23,7 +27,7 @@ const MovieContainer = ({ movie, title }) => {
           to={`movie/${movie.id}/quotes`}
           className='flex justify-center text-white text-xl md:text-5xl underline'
         >
-          {movie.name.en}
+          {movie.name[i18n.language]}
         </Link>
       </div>
     </>

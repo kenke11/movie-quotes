@@ -2,12 +2,15 @@ import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import Quote from './Quote';
 import { BookLoader } from 'react-awesome-loaders';
+import { useTranslation } from 'react-i18next';
 
 const Quotes = () => {
   const [movie, setMovie] = useState(null);
   const [quotes, setQuotes] = useState([]);
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  const { i18n } = useTranslation('home');
+
   const params = useParams();
 
   useEffect(() => {
@@ -31,7 +34,7 @@ const Quotes = () => {
     <div className='pt-24 md:pt-36'>
       <div className='top-0 py-5 px-10 fixed w-full bg-gray-550'>
         <h2 className='flex  text-white text-5xl'>
-          {isLoading && !error && movie.name.en}
+          {isLoading && !error && movie.name[i18n.language]}
         </h2>
       </div>
       {isLoading &&

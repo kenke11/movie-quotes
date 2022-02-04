@@ -18,6 +18,7 @@ const MovieError = () => {
             <img
               src='http://127.0.0.1:8000/img/images.jpeg'
               className='flex justify-center text-center m-auto rounded-xl'
+              alt='error'
             />
           </div>
 

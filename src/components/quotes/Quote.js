@@ -1,4 +1,8 @@
+import { useTranslation } from 'react-i18next';
+
 const Quote = ({ quote }) => {
+  const { i18n } = useTranslation('home');
+
   return (
     <div className='bg-white rounded-xl my-10 max-w-2xl m-auto'>
       <img
@@ -8,7 +12,7 @@ const Quote = ({ quote }) => {
       />
       <div className='py-3 overflow-y-auto max-h-36'>
         <p className='flex justify-center  text-xl text-gray-800 px-5'>
-          {quote.quote.en}
+          {quote.quote[i18n.language]}
         </p>
       </div>
     </div>
