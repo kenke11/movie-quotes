@@ -12,5 +12,11 @@
   "catalog": "კატალოგი",
   "create": "შექმნა",
   "admin": "ადმინი",
-  "search_input": "ფილმის პოვნა / სერიალის..."
+  "search_input": "ფილმის პოვნა / სერიალის...",
+  "upload_image": "ატვირთეთ სურათი",
+  "movie_name_in_english": "ფილმის სახელი ინგლისურად",
+  "movie_name_in_georgian": "ფილმის სახელი ქართილად",
+  "publish": "გამოქვეყნება",
+  "add_a_movie": "ფილმის დამატება",
+  "movie_catalog": "ფილმების კატალოგი"
 }

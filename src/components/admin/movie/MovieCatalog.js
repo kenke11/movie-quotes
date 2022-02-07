@@ -2,11 +2,15 @@ import classes from './MovieCatalog.module.css';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import Movie from './Movie';
+import i18n from 'i18next';
 
 const MovieCatalog = () => {
   const [movies, setMovies] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
+
+  const [searchValue, setSearchValue] = useState('');
+
   const { t } = useTranslation();
 
   const apiPatch = 'http://127.0.0.1:8000/';
@@ -27,13 +31,23 @@ const MovieCatalog = () => {
     }, 1500);
   }, []);
 
+  const searchHandler = (event) => {
+    setSearchValue(event.target.value);
+  };
+
   return (
     <div className='w-10/12 md:w-8/12 m-auto mt-10'>
+      <h2 className='mb-3 text-3xl font-serif font-bold'>
+        {t('movie_catalog')}
+      </h2>
+
       <div className='w-full mb-3'>
         <input
           className='w-full px-5 py-3 rounded-md bg-gray-800 text-white'
           type='text'
           placeholder={t('search_input')}
+          onChange={searchHandler}
+          value={searchValue}
         />
       </div>
 
@@ -60,7 +74,19 @@ const MovieCatalog = () => {
           <tbody className='text-white divide-y divide-gray-900  overflow-y-auto'>
             {isLoading &&
               !error &&
-              movies.map((movie) => <Movie key={movie.id} movie={movie} />)}
+              movies
+                .filter((value) => {
+                  if (searchValue === '') {
+                    return value;
+                  } else if (
+                    value.name[i18n.language]
+                      .toLowerCase()
+                      .includes(searchValue.toLowerCase())
+                  ) {
+                    return value;
+                  }
+                })
+                .map((movie) => <Movie key={movie.id} movie={movie} />)}
             {/*TODO*/}
             {/*{!isLoading && !error && (*/}
             {/*  <div className='py-5 px-10'>Loading...</div>*/}

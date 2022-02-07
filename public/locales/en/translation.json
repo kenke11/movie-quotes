@@ -12,5 +12,11 @@
   "catalog": "Catalog",
   "create": "Create",
   "admin": "admin",
-  "search_input": "Find movie / TV series..."
+  "search_input": "Find movie / TV series...",
+  "upload_image": "Upload an image",
+  "movie_name_in_english": "Movie name in English",
+  "movie_name_in_georgian": "Movie name in Georgian",
+  "publish": "Publish",
+  "add_a_movie": "Add a movie",
+  "movie_catalog": "Movie Catalog"
 }

@@ -7,7 +7,7 @@ const AdminPanelHeader = ({ navbarIsOpen, burgerBtnHandler }) => {
     <header className='flex justify-end py-4 px-10 text-white border-b border-gray-600'>
       <div className='w-9/12 md:w-8/12 flex justify-between'>
         <div className='text-4xl font-serif font-bold'>
-          <span className='text-orange-400'>Movie </span> Catalog
+          <span className='text-orange-400'>Movies </span> World
         </div>
 
         <div>

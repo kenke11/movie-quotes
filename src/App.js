@@ -8,6 +8,7 @@ import AdminPanel from './components/admin/AdminPanel';
 import AuthContext from './store/auth-context';
 import MovieCatalog from './components/admin/movie/MovieCatalog';
 import Layout from './components/layout/Layout';
+import MovieCreate from './components/admin/movie/MovieCreate';
 
 function App() {
   const authCtx = useContext(AuthContext);
@@ -36,6 +37,7 @@ function App() {
           }
         >
           <Route path='catalog' element={<MovieCatalog />} />
+          <Route path='create' element={<MovieCreate />} />
         </Route>
       </Routes>
     </Fragment>
