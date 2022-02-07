@@ -2,9 +2,19 @@ import classes from './AdminPanel.module.css';
 import { NavLink } from 'react-router-dom';
 import AuthContext from '../../store/auth-context';
 import { useContext } from 'react';
+import { useTranslation } from 'react-i18next';
 
 const AdminNav = ({ navbarIsOpen }) => {
   const authCtx = useContext(AuthContext);
+
+  const { t, i18n } = useTranslation();
+
+  const languageHandle = (lang) => {
+    i18n.changeLanguage(lang);
+  };
+
+  const enBtn = i18n.language === 'en' ? ' bg-orange-500' : '';
+  const geBtn = i18n.language === 'ge' ? ' bg-orange-500' : '';
 
   const navClasses = [navbarIsOpen ? classes.navOpen : classes.navClosed];
 
@@ -39,7 +49,7 @@ const AdminNav = ({ navbarIsOpen }) => {
           </svg>
         </div>
         <div className='flex flex-col'>
-          <span className='text-xs'>Admin</span>
+          <span className='text-xs'>{t('admin')}</span>
           <span className='font-serif font-bold'>Tazo K.</span>
         </div>
         <div
@@ -59,6 +69,23 @@ const AdminNav = ({ navbarIsOpen }) => {
               d='M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1'
             />
           </svg>
+        </div>
+      </div>
+
+      <div className='border-b border-gray-700 px-5 py-5'>
+        <div className='flex justify-center align-middle space-x-5'>
+          <button
+            onClick={() => languageHandle('en')}
+            className={`rounded-full border-2 px-3 py-3 font-bold font-serif ${enBtn}`}
+          >
+            EN
+          </button>
+          <button
+            onClick={() => languageHandle('ge')}
+            className={`rounded-full border-2 px-3 py-3 font-bold font-serif ${geBtn}`}
+          >
+            GE
+          </button>
         </div>
       </div>
 
@@ -86,7 +113,7 @@ const AdminNav = ({ navbarIsOpen }) => {
                   />
                 </svg>
               </span>
-              <span>Catalog</span>
+              <span>{t('catalog')}</span>
             </NavLink>
           </li>
           <li>
@@ -110,7 +137,7 @@ const AdminNav = ({ navbarIsOpen }) => {
                   />
                 </svg>
               </span>
-              <span>Create</span>
+              <span>{t('create')}</span>
             </NavLink>
           </li>
         </ul>

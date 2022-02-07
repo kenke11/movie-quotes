@@ -4,5 +4,13 @@
   },
   "login": "Login",
   "email": "Email",
-  "password": "Password"
+  "password": "Password",
+  "id": "ID",
+  "name": "name",
+  "created_date": "Created date",
+  "actions": "Actions",
+  "catalog": "Catalog",
+  "create": "Create",
+  "admin": "admin",
+  "search_input": "Find movie / TV series..."
 }
