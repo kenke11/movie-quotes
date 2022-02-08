@@ -1,19 +1,21 @@
 import Button from '../../UI/Button';
+import { useTranslation } from 'react-i18next';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import { useTranslation } from 'react-i18next';
 
 const isEmpty = (value) => value.trim() === '';
 const isNotTreeChars = (value) => value.trim().length > 2;
 
-const MovieCreateForm = () => {
+const MovieUpdateForm = ({ movie }) => {
   const { t } = useTranslation();
+
+  const movieImg = `http://127.0.0.1:8000/storage/${movie.img}`;
 
   const [imgFile, setImgFile] = useState();
   const [preview, setPreview] = useState();
 
-  const [nameEn, setNameEn] = useState('');
-  const [nameGe, setNameGe] = useState('');
+  const [nameEn, setNameEn] = useState(movie.name.en);
+  const [nameGe, setNameGe] = useState(movie.name.ge);
 
   const [formIsValid, setFormIsValid] = useState(false);
 
@@ -22,7 +24,7 @@ const MovieCreateForm = () => {
 
   useEffect(() => {
     if (!imgFile) {
-      setPreview(undefined);
+      setPreview(movieImg);
       return;
     }
 
@@ -52,11 +54,11 @@ const MovieCreateForm = () => {
   useEffect(() => {
     const enteredNameEnIsValid = !isEmpty(nameEn) && isNotTreeChars(nameEn);
     const enteredNameGeIsValid = !isEmpty(nameGe) && isNotTreeChars(nameGe);
-    setFormIsValid(enteredNameGeIsValid && enteredNameEnIsValid && !!imgFile);
-  }, [imgFile, nameEn, nameGe]);
+    setFormIsValid(enteredNameGeIsValid && enteredNameEnIsValid && !!preview);
+  }, [preview, nameEn, nameGe]);
 
-  const movieCreateFormHandler = (event) => {
-    event.preventDefault();
+  const movieUpdateHandler = (e) => {
+    e.preventDefault();
 
     if (formIsValid) {
       const data = new FormData();
@@ -65,16 +67,18 @@ const MovieCreateForm = () => {
       data.append('name_ge', nameGe);
       data.append('img', imgFile);
 
-      console.log(data);
+      console.log(nameEn);
+      console.log(nameGe);
+      console.log(imgFile);
+
+      console.log('data', data);
 
       axios
-        .post('http://127.0.0.1:8000/api/movie/create', data)
+        .post(`http://127.0.0.1:8000/api/movie/${movie.id}/update`, data)
         .then((response) => {
           console.log(response);
           if (response.status === 200) {
             setMessageSuccess(response.data.message);
-            setNameEn('');
-            setNameGe('');
             setImgFile(undefined);
           } else {
             setMessageError(response.data.message);
@@ -86,6 +90,10 @@ const MovieCreateForm = () => {
           }, 5000);
         })
         .catch((error) => {
+          setMessageError('Something went wrong!');
+          setTimeout(() => {
+            setMessageError('');
+          }, 5000);
           console.log('request errors', error);
         });
     }
@@ -100,8 +108,8 @@ const MovieCreateForm = () => {
     <>
       <form
         className='rounded-lg p-10 border border-gray-800'
-        onSubmit={movieCreateFormHandler}
         encType='multipart/form-data'
+        onSubmit={movieUpdateHandler}
       >
         <div className='md:flex md:space-x-10'>
           <div className='w-full md:w-3/12 relative h-72 z-20'>
@@ -117,9 +125,13 @@ const MovieCreateForm = () => {
               hidden
               onChange={selectImgFileHandler}
             />
-            {imgFile && (
-              <div className='-z-10 h-full flex items-center'>
-                <img src={preview} className='absolute' alt='movie img' />
+            {preview && (
+              <div className='-z-10 h-full flex items-center w-full'>
+                <img
+                  src={preview}
+                  className='absolute px-5 max-h-64 w-full'
+                  alt='movie img'
+                />
               </div>
             )}
           </div>
@@ -130,9 +142,9 @@ const MovieCreateForm = () => {
                   id='name_en'
                   type='text'
                   className='focus:outline-none focus:border-orange-400 focus:ring-2 focus:ring-orange-400 w-full bg-gray-800 rounded-lg px-5 py-3 text-white caret-orange-400'
-                  placeholder={t('movie_name_in_english')}
-                  onChange={nameEnHandler}
+                  placeholder={'Movie name in English'}
                   value={nameEn}
+                  onChange={nameEnHandler}
                 />
               </label>
             </div>
@@ -142,9 +154,9 @@ const MovieCreateForm = () => {
                   id='name_ge'
                   type='text'
                   className='focus:outline-none focus:border-orange-400 focus:ring-2 focus:ring-orange-400 w-full bg-gray-800 rounded-lg px-5 py-3 text-white caret-orange-400'
-                  placeholder={t('movie_name_in_georgian')}
-                  onChange={nameGeHandler}
+                  placeholder={'Movie name in Georgian'}
                   value={nameGe}
+                  onChange={nameGeHandler}
                 />
               </label>
             </div>
@@ -152,7 +164,7 @@ const MovieCreateForm = () => {
         </div>
         <div className='mt-6 flex justify-end'>
           <Button type='submit' disabled={formIsValid}>
-            {t('publish')}
+            {t('updated')}
           </Button>
         </div>
       </form>
@@ -202,7 +214,7 @@ const MovieCreateForm = () => {
               clipRule='evenodd'
             />
           </svg>
-          <span>{messageSuccess}</span>
+          <span>{messageError}</span>
           <button type='button' className='ml-8' onClick={messageBtnHandler}>
             <svg
               className='h-6 w-6 hover:text-gray-300'
@@ -224,4 +236,4 @@ const MovieCreateForm = () => {
   );
 };
 
-export default MovieCreateForm;
+export default MovieUpdateForm;

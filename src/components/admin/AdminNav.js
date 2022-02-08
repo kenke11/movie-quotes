@@ -24,7 +24,7 @@ const AdminNav = ({ navbarIsOpen }) => {
 
   return (
     <div
-      className={`${classes['nav-bar']} ${navClasses}  top-0 bottom-0 border-r border-gray-600 z-10`}
+      className={`${classes['nav-bar']} ${navClasses}  top-0 bottom-0 border-r border-gray-600 z-50`}
     >
       <div className='border-b border-gray-700 px-5 py-5'>
         <h1 className='text-4xl font-serif font-bold'>
@@ -93,7 +93,7 @@ const AdminNav = ({ navbarIsOpen }) => {
         <ul className=''>
           <li>
             <NavLink
-              to='catalog'
+              to='movies'
               className={({ isActive }) =>
                 isActive ? classes['active-link'] : classes['link']
               }
@@ -118,7 +118,7 @@ const AdminNav = ({ navbarIsOpen }) => {
           </li>
           <li>
             <NavLink
-              to='/admin-panel/create'
+              to='movie/create'
               className={({ isActive }) =>
                 isActive ? classes['active-link'] : classes['link']
               }

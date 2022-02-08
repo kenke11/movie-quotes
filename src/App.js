@@ -9,6 +9,7 @@ import AuthContext from './store/auth-context';
 import MovieCatalog from './components/admin/movie/MovieCatalog';
 import Layout from './components/layout/Layout';
 import MovieCreate from './components/admin/movie/MovieCreate';
+import MovieUpdate from './components/admin/movie/MovieUpdate';
 
 function App() {
   const authCtx = useContext(AuthContext);
@@ -36,8 +37,9 @@ function App() {
             authCtx.isLoggedIn ? <AdminPanel /> : <Navigate to='/login' />
           }
         >
-          <Route path='catalog' element={<MovieCatalog />} />
-          <Route path='create' element={<MovieCreate />} />
+          <Route path='movies' element={<MovieCatalog />} />
+          <Route path='movie/create' element={<MovieCreate />} />
+          <Route path='movies/:id/update' element={<MovieUpdate />} />
         </Route>
       </Routes>
     </Fragment>
