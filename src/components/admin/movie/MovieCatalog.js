@@ -75,6 +75,7 @@ const MovieCatalog = () => {
             {isLoading &&
               !error &&
               movies
+                // eslint-disable-next-line array-callback-return
                 .filter((value) => {
                   if (searchValue === '') {
                     return value;

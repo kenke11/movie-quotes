@@ -63,8 +63,6 @@ const Login = () => {
     console.log(incorrectUser);
   }
 
-  const isLoggedIn = authCtx.isLoggedIn;
-
   return (
     <div className='i-center'>
       <div className='max-w-lg mx-auto bg-gray-200 border-gray-500 p-6 rounded-xl'>

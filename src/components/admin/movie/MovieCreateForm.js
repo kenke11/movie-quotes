@@ -118,7 +118,7 @@ const MovieCreateForm = () => {
             />
             {imgFile && (
               <div className='-z-10 h-full flex items-center'>
-                <img src={preview} className='absolute' />
+                <img src={preview} className='absolute' alt='movie img' />
               </div>
             )}
           </div>
