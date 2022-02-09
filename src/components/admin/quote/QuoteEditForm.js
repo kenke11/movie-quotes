@@ -127,9 +127,8 @@ const QuoteEditForm = ({ modalClose, quote }) => {
                 className='focus:outline-none focus:border-orange-400 focus:ring-2 focus:ring-orange-400 w-full bg-gray-800 rounded-lg px-5 py-3 text-white caret-orange-400 h-32'
                 placeholder={t('quote_in_english')}
                 onChange={quoteEnHandler}
-              >
-                {quoteEn}
-              </textarea>
+                value={quoteEn}
+              />
             </label>
           </div>
           <div className='w-full mt-6'>
@@ -139,9 +138,8 @@ const QuoteEditForm = ({ modalClose, quote }) => {
                 className='focus:outline-none focus:border-orange-400 focus:ring-2 focus:ring-orange-400 w-full bg-gray-800 rounded-lg px-5 py-3 text-white caret-orange-400 h-32'
                 placeholder={t('quote_in_georgian')}
                 onChange={quoteGeHandler}
-              >
-                {quoteGe}
-              </textarea>
+                value={quoteGe}
+              />
             </label>
           </div>
         </div>

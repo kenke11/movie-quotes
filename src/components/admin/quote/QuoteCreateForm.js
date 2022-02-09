@@ -71,17 +71,14 @@ const QuoteCreateForm = ({ modalClose, movieId }) => {
       axios
         .post(`http://127.0.0.1:8000/api/quote/create`, data)
         .then((response) => {
-          console.log(response);
           if (response.status === 200) {
             setMessageSuccess(response.data.message);
-            console.log(response);
             setImgFile(undefined);
             setQuoteEn('');
             setQuoteGe('');
           } else {
             setMessageError(response.data.message);
           }
-          console.log(response);
 
           setTimeout(() => {
             setMessageError('');
@@ -132,9 +129,7 @@ const QuoteCreateForm = ({ modalClose, movieId }) => {
                 className='focus:outline-none focus:border-orange-400 focus:ring-2 focus:ring-orange-400 w-full bg-gray-800 rounded-lg px-5 py-3 text-white caret-orange-400 h-32'
                 placeholder={t('quote_in_english')}
                 onChange={quoteEnHandler}
-              >
-                {quoteEn}
-              </textarea>
+              />
             </label>
           </div>
           <div className='w-full mt-6'>
@@ -144,9 +139,7 @@ const QuoteCreateForm = ({ modalClose, movieId }) => {
                 className='focus:outline-none focus:border-orange-400 focus:ring-2 focus:ring-orange-400 w-full bg-gray-800 rounded-lg px-5 py-3 text-white caret-orange-400 h-32'
                 placeholder={t('quote_in_georgian')}
                 onChange={quoteGeHandler}
-              >
-                {quoteGe}
-              </textarea>
+              />
             </label>
           </div>
         </div>

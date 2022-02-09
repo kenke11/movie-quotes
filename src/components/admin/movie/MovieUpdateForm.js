@@ -70,7 +70,6 @@ const MovieUpdateForm = ({ movie }) => {
       axios
         .post(`http://127.0.0.1:8000/api/movie/${movie.id}/update`, data)
         .then((response) => {
-          console.log(response);
           if (response.status === 200) {
             setMessageSuccess(response.data.message);
             setImgFile(undefined);

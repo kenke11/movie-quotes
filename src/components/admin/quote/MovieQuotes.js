@@ -28,7 +28,6 @@ const MovieQuotes = ({ quotes, movieId }) => {
             className='w-full px-5 py-3 rounded-md bg-gray-800 text-white focus:outline-none focus:border-orange-400 focus:ring-2 focus:ring-orange-400 rounded-r-none'
             type='text'
             placeholder='search input'
-            value={searchValue}
           />
           <Button
             type='button'
