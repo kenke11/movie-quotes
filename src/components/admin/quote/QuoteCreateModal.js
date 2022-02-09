@@ -1,0 +1,15 @@
+import classes from './QuoteEditModal.module.css';
+import QuoteCreateForm from './QuoteCreateForm';
+
+const QuoteCreateModal = ({ modalClose, movieId }) => {
+  return (
+    <div>
+      <div onClick={modalClose} className={classes.backdrop} />
+      <div className={classes.modal}>
+        <QuoteCreateForm modalClose={modalClose} movieId={movieId} />
+      </div>
+    </div>
+  );
+};
+
+export default QuoteCreateModal;

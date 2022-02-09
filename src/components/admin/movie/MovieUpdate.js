@@ -11,6 +11,8 @@ const MovieUpdate = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
 
+  const [movieId, setMovieId] = useState(null);
+
   useEffect(() => {
     setIsLoading(false);
     fetch(`http://127.0.0.1:8000/api/movie/${params.id}/quotes`)
@@ -18,6 +20,7 @@ const MovieUpdate = () => {
       .then((result) => {
         setMovie(result['0']);
         setQuotes(result['0'].quotes);
+        setMovieId(result['0'].id);
         setIsLoading(true);
       })
       .catch((error) => {
@@ -34,7 +37,7 @@ const MovieUpdate = () => {
         <div className='w-full mb-3'>
           <MovieUpdateForm movie={movie} />
 
-          <MovieQuotes quotes={quotes} />
+          <MovieQuotes quotes={quotes} movieId={movieId} />
         </div>
       )}
     </div>
