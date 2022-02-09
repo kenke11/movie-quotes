@@ -43,7 +43,7 @@ const MovieCatalog = () => {
 
       <div className='w-full mb-3'>
         <input
-          className='w-full px-5 py-3 rounded-md bg-gray-800 text-white'
+          className='w-full px-5 py-3 rounded-md bg-gray-800 text-white focus:outline-none focus:border-orange-400 focus:ring-2 focus:ring-orange-400'
           type='text'
           placeholder={t('search_input')}
           onChange={searchHandler}

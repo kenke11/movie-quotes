@@ -24,7 +24,7 @@ const AdminNav = ({ navbarIsOpen }) => {
 
   return (
     <div
-      className={`${classes['nav-bar']} ${navClasses}  top-0 bottom-0 border-r border-gray-600 z-50`}
+      className={`${classes['nav-bar']} ${navClasses}  top-0 bottom-0 border-r border-gray-600 z-40`}
     >
       <div className='border-b border-gray-700 px-5 py-5'>
         <h1 className='text-4xl font-serif font-bold'>

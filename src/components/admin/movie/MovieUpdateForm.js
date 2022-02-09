@@ -67,12 +67,6 @@ const MovieUpdateForm = ({ movie }) => {
       data.append('name_ge', nameGe);
       data.append('img', imgFile);
 
-      console.log(nameEn);
-      console.log(nameGe);
-      console.log(imgFile);
-
-      console.log('data', data);
-
       axios
         .post(`http://127.0.0.1:8000/api/movie/${movie.id}/update`, data)
         .then((response) => {

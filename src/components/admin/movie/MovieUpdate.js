@@ -1,6 +1,7 @@
 import { useParams } from 'react-router-dom';
 import MovieUpdateForm from './MovieUpdateForm';
 import { useEffect, useState } from 'react';
+import MovieQuotes from '../quote/MovieQuotes';
 
 const MovieUpdate = () => {
   const params = useParams();
@@ -32,6 +33,8 @@ const MovieUpdate = () => {
       {isLoading && !error && (
         <div className='w-full mb-3'>
           <MovieUpdateForm movie={movie} />
+
+          <MovieQuotes quotes={quotes} />
         </div>
       )}
     </div>
