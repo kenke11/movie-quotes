@@ -12,6 +12,25 @@ const MovieQuote = ({ quote }) => {
     setEditModal(!editModal);
   };
 
+  // TODO
+  // ნოთიფიქეიშენის და სთორიდან წაშლის ფუნქციონალი
+  const deleteQuoteHandler = () => {
+    fetch(`http://127.0.0.1:8000/api/quote/${quote.id}/delete`, {
+      method: 'DELETE',
+    })
+      .then((response) => {
+        console.log(response);
+        if (response.status === 200) {
+          console.log(response);
+        }
+
+        console.log(response);
+      })
+      .catch((error) => {
+        console.log('request errors', error);
+      });
+  };
+
   return (
     <>
       <tr className='rounded-md mb-2'>
@@ -39,7 +58,10 @@ const MovieQuote = ({ quote }) => {
             </svg>
           </button>
 
-          <button className='px-2 py-2 rounded-md bg-red-900 text-red-300 hover:bg-red-700 transition duration-200'>
+          <button
+            onClick={deleteQuoteHandler}
+            className='px-2 py-2 rounded-md bg-red-900 text-red-300 hover:bg-red-700 transition duration-200'
+          >
             <svg className='h-5 w-5' viewBox='0 0 20 20' fill='currentColor'>
               <path
                 fillRule='evenodd'
