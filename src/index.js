@@ -7,15 +7,18 @@ import { BrowserRouter } from 'react-router-dom';
 
 import './i18next';
 import { AuthContextProvider } from './store/auth-context';
+import MovieProvider from './store/MovieProvider';
 
 ReactDOM.render(
-  <AuthContextProvider>
-    <BrowserRouter>
-      <Suspense fallback={<div />}>
-        <App />
-      </Suspense>
-    </BrowserRouter>
-  </AuthContextProvider>,
+  <MovieProvider>
+    <AuthContextProvider>
+      <BrowserRouter>
+        <Suspense fallback={<div />}>
+          <App />
+        </Suspense>
+      </BrowserRouter>
+    </AuthContextProvider>
+  </MovieProvider>,
   document.getElementById('root')
 );
 

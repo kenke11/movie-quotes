@@ -5,7 +5,7 @@ import Movie from './Movie';
 import i18n from 'i18next';
 
 const MovieCatalog = () => {
-  const [movies, setMovies] = useState([]);
+  const [movies, setMovies] = useState();
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
 

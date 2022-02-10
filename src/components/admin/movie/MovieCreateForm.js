@@ -1,7 +1,8 @@
 import Button from '../../UI/Button';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import axios from 'axios';
 import { useTranslation } from 'react-i18next';
+import MovieContext from '../../../store/movie-context';
 
 const isEmpty = (value) => value.trim() === '';
 const isNotTreeChars = (value) => value.trim().length > 2;
