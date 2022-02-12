@@ -27,7 +27,7 @@ const MovieQuotes = ({ quotes, movieId }) => {
             onClick={searchHandler}
             className='w-full px-5 py-3 rounded-md bg-gray-800 text-white focus:outline-none focus:border-orange-400 focus:ring-2 focus:ring-orange-400 rounded-r-none'
             type='text'
-            placeholder='search input'
+            placeholder={t('search')}
           />
           <Button
             type='button'
@@ -55,17 +55,16 @@ const MovieQuotes = ({ quotes, movieId }) => {
             <thead>
               <tr>
                 <th className='px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider'>
-                  id
-                </th>
-
-                <th className='px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider'>
-                  quote
+                  {t('id')}
                 </th>
                 <th className='px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider'>
-                  created date
+                  {t('quote')}
                 </th>
                 <th className='px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider'>
-                  actions
+                  {t('created_date')}
+                </th>
+                <th className='px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider'>
+                  {t('actions')}
                 </th>
               </tr>
             </thead>

@@ -182,10 +182,10 @@ const QuoteCreateForm = ({ modalClose, movieId }) => {
         </div>
         <div className='space-x-7'>
           <Button type='submit' disabled={formIsValid}>
-            publish
+            {t('publish')}
           </Button>
           <Button type='button' onClick={modalClose} disabled={true}>
-            Close
+            {t('close')}
           </Button>
         </div>
       </div>

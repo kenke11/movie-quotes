@@ -2,9 +2,11 @@ import moment from 'moment';
 import { useTranslation } from 'react-i18next';
 import { useState } from 'react';
 import QuoteEditModal from './QuoteEditModal';
+import * as actions from '../../../store/actions';
+import { connect } from 'react-redux';
 
-const MovieQuote = ({ quote }) => {
-  const { t, i18n } = useTranslation();
+const MovieQuote = (props) => {
+  const { i18n } = useTranslation();
 
   const [editModal, setEditModal] = useState(false);
 
@@ -15,33 +17,35 @@ const MovieQuote = ({ quote }) => {
   // TODO
   // ნოთიფიქეიშენის და სთორიდან წაშლის ფუნქციონალი
   const deleteQuoteHandler = () => {
-    fetch(`http://127.0.0.1:8000/api/quote/${quote.id}/delete`, {
-      method: 'DELETE',
-    })
-      .then((response) => {
-        console.log(response);
-        if (response.status === 200) {
-          console.log(response);
-        }
+    props.DeleteQuote(props.quote.id);
 
-        console.log(response);
-      })
-      .catch((error) => {
-        console.log('request errors', error);
-      });
+    // fetch(`http://127.0.0.1:8000/api/quote/${props.quote.id}/delete`, {
+    //   method: 'DELETE',
+    // })
+    //   .then((response) => {
+    //     console.log(response);
+    //     if (response.status === 200) {
+    //       console.log(response);
+    //     }
+    //
+    //     console.log(response);
+    //   })
+    //   .catch((error) => {
+    //     console.log('request errors', error);
+    //   });
   };
 
   return (
     <>
       <tr className='rounded-md mb-2'>
-        <td className='px-6 py-4 text-sm font-medium'>{quote.id}</td>
+        <td className='px-6 py-4 text-sm font-medium'>{props.quote.id}</td>
         <td className='px-6 py-4 text-sm font-medium'>
-          {quote.quote[i18n.language].length > 50
-            ? quote.quote[i18n.language].slice(0, 49) + '...'
-            : quote.quote[i18n.language]}
+          {props.quote.quote[i18n.language].length > 50
+            ? props.quote.quote[i18n.language].slice(0, 49) + '...'
+            : props.quote.quote[i18n.language]}
         </td>
         <td className='px-6 py-4 text-sm font-medium'>
-          {moment(quote.created_at).format('DD/MM/YYYY')}
+          {moment(props.quote.created_at).format('DD/MM/YYYY')}
         </td>
         <td className='px-6 py-4  text-sm font-medium space-y-1 md:space-y-0 md:space-x-3'>
           <button
@@ -73,10 +77,22 @@ const MovieQuote = ({ quote }) => {
         </td>
       </tr>
       {editModal && (
-        <QuoteEditModal modalClose={quoteModalBtnHandler} quote={quote} />
+        <QuoteEditModal modalClose={quoteModalBtnHandler} quote={props.quote} />
       )}
     </>
   );
 };
 
-export default MovieQuote;
+const mapStateToProps = (state) => {
+  return {
+    movies: state.movies.list,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    DeleteQuote: (id) => dispatch(actions.DeleteQuote(id)),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(MovieQuote);

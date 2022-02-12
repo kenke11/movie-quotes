@@ -17,6 +17,13 @@
   "movie_name_in_english": "ფილმის სახელი ინგლისურად",
   "movie_name_in_georgian": "ფილმის სახელი ქართილად",
   "publish": "გამოქვეყნება",
+  "updated": "განახლება",
   "add_a_movie": "ფილმის დამატება",
-  "movie_catalog": "ფილმების კატალოგი"
+  "movie_catalog": "ფილმების კატალოგი",
+  "movie_update": "ფილმის განახლება",
+  "search_quote": "ციტატის მოძებნა",
+  "quote": "ციტატა",
+  "quote_in_english": "ციტატა ინგლისურად",
+  "quote_in_georgian": "ციტატა ქართულად",
+  "close": "გათიშვა"
 }

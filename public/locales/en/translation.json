@@ -17,6 +17,13 @@
   "movie_name_in_english": "Movie name in English",
   "movie_name_in_georgian": "Movie name in Georgian",
   "publish": "Publish",
+  "updated": "Updated",
   "add_a_movie": "Add a movie",
-  "movie_catalog": "Movie Catalog"
+  "movie_catalog": "Movie Catalog",
+  "movie_update": "Movie update",
+  "search_quote": "Search quote",
+  "quote": "Quote",
+  "quote_in_english": "Quote in English",
+  "quote_in_georgian": "Quote in Georgian",
+  "close": "Close"
 }

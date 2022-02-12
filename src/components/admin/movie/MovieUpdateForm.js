@@ -135,7 +135,7 @@ const MovieUpdateForm = ({ movie }) => {
                   id='name_en'
                   type='text'
                   className='focus:outline-none focus:border-orange-400 focus:ring-2 focus:ring-orange-400 w-full bg-gray-800 rounded-lg px-5 py-3 text-white caret-orange-400'
-                  placeholder={'Movie name in English'}
+                  placeholder={t('movie_name_in_english')}
                   value={nameEn}
                   onChange={nameEnHandler}
                 />
@@ -147,7 +147,7 @@ const MovieUpdateForm = ({ movie }) => {
                   id='name_ge'
                   type='text'
                   className='focus:outline-none focus:border-orange-400 focus:ring-2 focus:ring-orange-400 w-full bg-gray-800 rounded-lg px-5 py-3 text-white caret-orange-400'
-                  placeholder={'Movie name in Georgian'}
+                  placeholder={t('movie_name_in_georgian')}
                   value={nameGe}
                   onChange={nameGeHandler}
                 />

@@ -2,9 +2,12 @@ import { useParams } from 'react-router-dom';
 import MovieUpdateForm from './MovieUpdateForm';
 import { useEffect, useState } from 'react';
 import MovieQuotes from '../quote/MovieQuotes';
+import { useTranslation } from 'react-i18next';
 
 const MovieUpdate = () => {
   const params = useParams();
+
+  const { t } = useTranslation();
 
   const [movie, setMovie] = useState([]);
   const [quotes, setQuotes] = useState([]);
@@ -31,7 +34,9 @@ const MovieUpdate = () => {
 
   return (
     <div className='w-10/12 md:w-8/12 m-auto mt-10'>
-      <h2 className='mb-3 text-3xl font-serif font-bold'>Movie Update</h2>
+      <h2 className='mb-3 text-3xl font-serif font-bold'>
+        {t('movie_update')}
+      </h2>
 
       {isLoading && !error && (
         <div className='w-full mb-3'>
