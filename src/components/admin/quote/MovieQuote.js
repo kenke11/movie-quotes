@@ -14,25 +14,8 @@ const MovieQuote = (props) => {
     setEditModal(!editModal);
   };
 
-  // TODO
-  // ნოთიფიქეიშენის და სთორიდან წაშლის ფუნქციონალი
   const deleteQuoteHandler = () => {
-    props.DeleteQuote(props.quote.id);
-
-    // fetch(`http://127.0.0.1:8000/api/quote/${props.quote.id}/delete`, {
-    //   method: 'DELETE',
-    // })
-    //   .then((response) => {
-    //     console.log(response);
-    //     if (response.status === 200) {
-    //       console.log(response);
-    //     }
-    //
-    //     console.log(response);
-    //   })
-    //   .catch((error) => {
-    //     console.log('request errors', error);
-    //   });
+    props.DeleteQuote(props.quote.id, props.movieId);
   };
 
   return (
@@ -91,7 +74,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    DeleteQuote: (id) => dispatch(actions.DeleteQuote(id)),
+    DeleteQuote: (id, movieId) => dispatch(actions.DeleteQuote(id, movieId)),
   };
 };
 

@@ -3,34 +3,22 @@ import MovieUpdateForm from './MovieUpdateForm';
 import { useEffect, useState } from 'react';
 import MovieQuotes from '../quote/MovieQuotes';
 import { useTranslation } from 'react-i18next';
+import * as actions from '../../../store/actions';
+import { connect } from 'react-redux';
 
-const MovieUpdate = () => {
+const MovieUpdate = (props) => {
   const params = useParams();
 
   const { t } = useTranslation();
 
-  const [movie, setMovie] = useState([]);
-  const [quotes, setQuotes] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState(null);
 
-  const [movieId, setMovieId] = useState(null);
-
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
     setIsLoading(false);
-    fetch(`http://127.0.0.1:8000/api/movie/${params.id}/quotes`)
-      .then((res) => res.json())
-      .then((result) => {
-        setMovie(result['0']);
-        setQuotes(result['0'].quotes);
-        setMovieId(result['0'].id);
-        setIsLoading(true);
-      })
-      .catch((error) => {
-        console.log('request failed', error);
-        setError(error);
-      });
-  }, [params.id]);
+    props.InitMovie(params.id);
+    setIsLoading(true);
+  }, [props.InitMovie]);
 
   return (
     <div className='w-10/12 md:w-8/12 m-auto mt-10'>
@@ -38,15 +26,30 @@ const MovieUpdate = () => {
         {t('movie_update')}
       </h2>
 
-      {isLoading && !error && (
+      {isLoading && props.movie.length > 0 && (
         <div className='w-full mb-3'>
-          <MovieUpdateForm movie={movie} />
+          <MovieUpdateForm movie={props.movie['0']} />
 
-          <MovieQuotes quotes={quotes} movieId={movieId} />
+          <MovieQuotes
+            quotes={props.movie['0'].quotes}
+            movieId={props.movie['0'].id}
+          />
         </div>
       )}
     </div>
   );
 };
 
-export default MovieUpdate;
+const mapStateToProps = (state) => {
+  return {
+    movie: state.movie.movie,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    InitMovie: (id) => dispatch(actions.InitMovie(id)),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(MovieUpdate);

@@ -11,14 +11,17 @@ import { BrowserRouter } from 'react-router-dom';
 import './i18next';
 import { AuthContextProvider } from './store/auth-context';
 
-import MovieReducer from './store/reducers/movieReducer';
+import MoviesReducer, { MovieReducer } from './store/reducers/movieReducer';
 
 const composeEnhancers =
   process.env.NODE_ENV === 'development'
     ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
     : null || compose;
 
-const rootReducer = combineReducers({ movies: MovieReducer });
+const rootReducer = combineReducers({
+  movies: MoviesReducer,
+  movie: MovieReducer,
+});
 
 const store = createStore(
   rootReducer,

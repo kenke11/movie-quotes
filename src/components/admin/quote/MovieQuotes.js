@@ -69,21 +69,9 @@ const MovieQuotes = ({ quotes, movieId }) => {
               </tr>
             </thead>
             <tbody className='text-white divide-y divide-gray-900  overflow-y-auto'>
-              {quotes
-                .filter((value) => {
-                  if (searchValue === '') {
-                    return value;
-                  } else if (
-                    value.name[i18n.language]
-                      .toLowerCase()
-                      .includes(searchValue.toLowerCase())
-                  ) {
-                    return value;
-                  }
-                })
-                .map((quote) => (
-                  <MovieQuote key={quote.id} quote={quote} />
-                ))}
+              {quotes.map((quote) => (
+                <MovieQuote key={quote.id} quote={quote} movieId={movieId} />
+              ))}
             </tbody>
           </table>
         </div>

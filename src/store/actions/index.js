@@ -1,1 +1,1 @@
-export { InitMovies, DeleteMovie, DeleteQuote } from './movies';
+export { InitMovies, DeleteMovie, DeleteQuote, InitMovie } from './movies';
