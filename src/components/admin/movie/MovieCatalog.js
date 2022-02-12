@@ -3,32 +3,19 @@ import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import Movie from './Movie';
 import i18n from 'i18next';
+import * as actions from '../../../store/actions/index';
+import { connect } from 'react-redux';
 
-const MovieCatalog = () => {
-  const [movies, setMovies] = useState();
+const MovieCatalog = (props) => {
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState(null);
 
   const [searchValue, setSearchValue] = useState('');
 
   const { t } = useTranslation();
 
-  const apiPatch = 'http://127.0.0.1:8000/';
-
   useEffect(() => {
-    setIsLoading(false);
-    setTimeout(() => {
-      fetch(`${apiPatch}api/movies`)
-        .then((res) => res.json())
-        .then((movies) => {
-          setMovies(movies);
-          setIsLoading(true);
-        })
-        .catch((error) => {
-          console.log('request failed', error);
-          setError(error);
-        });
-    }, 1500);
+    props.InitMovies();
+    setIsLoading(true);
   }, []);
 
   const searchHandler = (event) => {
@@ -73,8 +60,7 @@ const MovieCatalog = () => {
           </thead>
           <tbody className='text-white divide-y divide-gray-900  overflow-y-auto'>
             {isLoading &&
-              !error &&
-              movies
+              props.movies
                 // eslint-disable-next-line array-callback-return
                 .filter((value) => {
                   if (searchValue === '') {
@@ -102,4 +88,16 @@ const MovieCatalog = () => {
   );
 };
 
-export default MovieCatalog;
+const mapStateToProps = (state) => {
+  return {
+    movies: state.movies.list,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    InitMovies: () => dispatch(actions.InitMovies()),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(MovieCatalog);

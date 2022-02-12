@@ -1,40 +1,29 @@
 import moment from 'moment';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
+import * as actions from '../../../store/actions';
+import { connect } from 'react-redux';
 
-const Movie = ({ movie }) => {
+const Movie = (props) => {
   const { i18n } = useTranslation();
 
   // TODO
   // ნოთიფიქეიშენის და სთორიდან წაშლის ფუნქციონალი
   const deleteMovieHandler = () => {
-    fetch(`http://127.0.0.1:8000/api/movie/${movie.id}/delete`, {
-      method: 'DELETE',
-    })
-      .then((response) => {
-        console.log(response);
-        if (response.status === 200) {
-          console.log(response);
-        }
-
-        console.log(response);
-      })
-      .catch((error) => {
-        console.log('request errors', error);
-      });
+    props.DeleteMovie(props.movie.id);
   };
 
   return (
     <tr className='rounded-md mb-2'>
-      <td className='px-6 py-4 text-sm font-medium'>{movie.id}</td>
+      <td className='px-6 py-4 text-sm font-medium'>{props.movie.id}</td>
       <td className='px-6 py-4 text-sm font-medium'>
-        {movie.name[i18n.language]}
+        {props.movie.name[i18n.language]}
       </td>
       <td className='px-6 py-4 text-sm font-medium'>
-        {moment(movie.created_at).format('DD/MM/YYYY')}
+        {moment(props.movie.created_at).format('DD/MM/YYYY')}
       </td>
       <td className='px-6 py-4  text-sm font-medium space-y-1 md:space-y-0 md:space-x-3'>
-        <Link to={`${movie.id}/update`}>
+        <Link to={`${props.movie.id}/update`}>
           <button className='px-2 py-2 rounded-md bg-blue-900 text-blue-300 hover:bg-blue-700 transition duration-200'>
             <svg className='h-5 w-5' viewBox='0 0 20 20' fill='currentColor'>
               <path d='M17.414 2.586a2 2 0 00-2.828 0L7 10.172V13h2.828l7.586-7.586a2 2 0 000-2.828z' />
@@ -64,4 +53,16 @@ const Movie = ({ movie }) => {
   );
 };
 
-export default Movie;
+const mapStateToProps = (state) => {
+  return {
+    movies: state.movies.list,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    DeleteMovie: (id) => dispatch(actions.DeleteMovie(id)),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Movie);
