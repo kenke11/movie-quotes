@@ -3,11 +3,10 @@ import { useEffect, useState } from 'react';
 import Quote from './Quote';
 import { BookLoader } from 'react-awesome-loaders';
 import { useTranslation } from 'react-i18next';
+import * as actions from '../../store/actions';
+import { connect } from 'react-redux';
 
-const Quotes = () => {
-  const [movie, setMovie] = useState(null);
-  const [quotes, setQuotes] = useState([]);
-  const [error, setError] = useState(null);
+const Quotes = (props) => {
   const [isLoading, setIsLoading] = useState(false);
   const { i18n } = useTranslation('home');
 
@@ -16,33 +15,29 @@ const Quotes = () => {
   useEffect(() => {
     setIsLoading(false);
     setTimeout(() => {
-      fetch(`http://127.0.0.1:8000/api/movie/${params.id}/quotes`)
-        .then((res) => res.json())
-        .then((result) => {
-          setMovie(result['0']);
-          setQuotes(result['0'].quotes);
-          setIsLoading(true);
-        })
-        .catch((error) => {
-          console.log('request failed', error);
-          setError(error);
-        });
+      props.InitMovie(params.id);
+      setIsLoading(true);
     }, 1500);
-  }, [params.id]);
+  }, []);
 
   return (
-    <div className='pt-24 md:pt-36'>
-      <div className='top-0 py-7 px-10 fixed w-full bg-gray-550 -z-10'>
-        <h2 className='flex  text-white text-5xl'>
-          {isLoading && !error && movie.name[i18n.language]}
-        </h2>
-      </div>
-      {isLoading &&
-        !error &&
-        quotes.length > 0 &&
-        quotes.map((quote) => <Quote key={quote.id} quote={quote} />)}
-      {!isLoading && !error && (
-        <div className='flex justify-center'>
+    <>
+      {props.movie.length > 0 && (
+        <div className='pt-24 md:pt-36'>
+          <div className='top-0 py-7 px-10 fixed w-full bg-gray-550 -zz-10'>
+            <h2 className='flex  text-white text-5xl'>
+              {props.movie[0].name[i18n.language]}
+            </h2>
+          </div>
+          {isLoading &&
+            props.movie[0].quotes.length > 0 &&
+            props.movie[0].quotes.map((quote) => (
+              <Quote key={quote.id} quote={quote} />
+            ))}
+        </div>
+      )}
+      {!isLoading && (
+        <div className='flex justify-center mt-20'>
           <BookLoader
             background={'linear-gradient(135deg,"#545151", "#E0E7FF")'}
             desktopSize={'100px'}
@@ -52,10 +47,20 @@ const Quotes = () => {
           />
         </div>
       )}
-      {!isLoading && error && <div>error</div>}
-      {}
-    </div>
+    </>
   );
 };
 
-export default Quotes;
+const mapStateToProps = (state) => {
+  return {
+    movie: state.movie.movie,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    InitMovie: (id) => dispatch(actions.InitMovie(id)),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Quotes);

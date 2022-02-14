@@ -74,13 +74,6 @@ const MovieCatalog = (props) => {
                   }
                 })
                 .map((movie) => <Movie key={movie.id} movie={movie} />)}
-            {/*TODO*/}
-            {/*{!isLoading && !error && (*/}
-            {/*  <div className='py-5 px-10'>Loading...</div>*/}
-            {/*)}*/}
-            {/*{!isLoading && error && (*/}
-            {/*  <div className='py-5 px-10'>Something went wrong!!!</div>*/}
-            {/*)}*/}
           </tbody>
         </table>
       </div>
