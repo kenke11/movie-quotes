@@ -49,8 +49,7 @@ const AdminNav = ({ navbarIsOpen }) => {
           </svg>
         </div>
         <div className='flex flex-col'>
-          <span className='text-xs'>{t('admin')}</span>
-          <span className='font-serif font-bold'>Tazo K.</span>
+          <span className='font-serif'>{t('admin')}</span>
         </div>
         <div
           onClick={logoutHandler}

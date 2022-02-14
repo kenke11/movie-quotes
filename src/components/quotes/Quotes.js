@@ -32,7 +32,7 @@ const Quotes = () => {
 
   return (
     <div className='pt-24 md:pt-36'>
-      <div className='top-0 py-5 px-10 fixed w-full bg-gray-550'>
+      <div className='top-0 py-7 px-10 fixed w-full bg-gray-550 -z-10'>
         <h2 className='flex  text-white text-5xl'>
           {isLoading && !error && movie.name[i18n.language]}
         </h2>
