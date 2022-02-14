@@ -1,4 +1,6 @@
 import {
+  CREATE_QUOTE,
+  CREATE_QUOTE_FAIL,
   DELETE_MOVIE,
   DELETE_QUOTE,
   FETCH_MOVIES_FAIL,
@@ -33,8 +35,25 @@ const setMovie = (state, action) => {
   return { ...state, movie: action.movie, error: false };
 };
 
+const createQuote = (state, action) => {
+  const updatedState = { ...state };
+
+  const quote = action.quote.quote;
+
+  // eslint-disable-next-line array-callback-return
+  const updatedMovie = updatedState.movie.map((movie) => {
+    console.log(movie.quotes);
+    movie.quotes = movie.quotes.concat(quote);
+    return movie;
+  });
+
+  console.log(updatedMovie);
+  return { ...state, movie: updatedMovie, error: false };
+};
+
+const createFailQuote = () => {};
+
 const removeQuote = (state, action) => {
-  console.log('action', action);
   const updatedState = { ...state };
 
   // eslint-disable-next-line array-callback-return
@@ -65,6 +84,10 @@ export const MovieReducer = (state = initialMovieState, action) => {
   switch (action.type) {
     case SET_MOVIE:
       return setMovie(state, action);
+    case CREATE_QUOTE:
+      return createQuote(state, action);
+    case CREATE_QUOTE_FAIL:
+      return createFailQuote(state, action);
     case DELETE_QUOTE:
       return removeQuote(state, action);
     default:

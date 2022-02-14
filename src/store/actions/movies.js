@@ -6,6 +6,8 @@ import {
   SET_MOVIES,
   SET_MOVIE,
   FETCH_MOVIE_FAIL,
+  CREATE_QUOTE,
+  CREATE_QUOTE_FAIL,
 } from './actionType';
 
 export const InitMovies = () => {
@@ -39,7 +41,27 @@ export const InitMovie = (id) => {
       })
       .catch((error) => {
         console.log('error', error);
-        dispatch(fetchMovieFail());
+        dispatch(fetchMovieFail(error));
+      });
+  };
+};
+
+export const CreateQuote = (quote) => {
+  const data = new FormData();
+
+  data.append('quote_en', quote.quoteEn);
+  data.append('quote_ge', quote.quoteGe);
+  data.append('movie_id', quote.movieId);
+  data.append('quote_img', quote.imgFile);
+
+  return (dispatch) => {
+    axios
+      .post(`http://127.0.0.1:8000/api/quote/create`, data)
+      .then((response) => {
+        dispatch(storeQuote(response.data));
+      })
+      .catch((error) => {
+        dispatch(storeQuoteFail(error));
       });
   };
 };
@@ -91,5 +113,19 @@ const removeQuote = (id, movieId) => {
     type: DELETE_QUOTE,
     id: id,
     movieId: movieId,
+  };
+};
+
+const storeQuote = (quote) => {
+  return {
+    type: CREATE_QUOTE,
+    quote: quote,
+  };
+};
+
+const storeQuoteFail = (error) => {
+  return {
+    type: CREATE_QUOTE_FAIL,
+    error: error,
   };
 };

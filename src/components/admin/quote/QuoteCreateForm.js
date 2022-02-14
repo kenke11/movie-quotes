@@ -1,12 +1,13 @@
 import Button from '../../UI/Button';
 import { useTranslation } from 'react-i18next';
 import { useEffect, useState } from 'react';
-import axios from 'axios';
+import * as actions from '../../../store/actions';
+import { connect } from 'react-redux';
 
 const isEmpty = (value) => value.trim() === '';
 const isNotTreeChars = (value) => value.trim().length > 2;
 
-const QuoteCreateForm = ({ modalClose, movieId }) => {
+const QuoteCreateForm = (props) => {
   const { t } = useTranslation();
 
   const [imgFile, setImgFile] = useState();
@@ -55,43 +56,23 @@ const QuoteCreateForm = ({ modalClose, movieId }) => {
     setFormIsValid(enteredNameGeIsValid && enteredNameEnIsValid && !!preview);
   }, [preview, quoteEn, quoteGe]);
 
-  const quoteCreateHandler = (e) => {
+  const quoteCreateHandler = async (e) => {
     e.preventDefault();
 
-    console.log([quoteEn, quoteGe, imgFile, movieId]);
+    console.log([quoteEn, quoteGe, imgFile, props.movieId]);
+
+    const quote = { quoteEn, quoteGe, imgFile, movieId: props.movieId };
 
     if (formIsValid) {
-      const data = new FormData();
+      await props.CreateQuote(quote);
+      await setMessageSuccess('Quote created successfully!');
+      await setQuoteGe('');
+      await setQuoteEn('');
+      await setImgFile(undefined);
 
-      data.append('quote_en', quoteEn);
-      data.append('quote_ge', quoteGe);
-      data.append('movie_id', movieId);
-      data.append('quote_img', imgFile);
-
-      axios
-        .post(`http://127.0.0.1:8000/api/quote/create`, data)
-        .then((response) => {
-          if (response.status === 200) {
-            setMessageSuccess(response.data.message);
-            setImgFile(undefined);
-            setQuoteEn('');
-            setQuoteGe('');
-          } else {
-            setMessageError(response.data.message);
-          }
-
-          setTimeout(() => {
-            setMessageError('');
-            setMessageSuccess('');
-          }, 5000);
-        })
-        .catch((error) => {
-          setMessageError('Something went wrong!');
-          setTimeout(() => {
-            setMessageError('');
-          }, 5000);
-          console.log('request errors', error);
-        });
+      await setTimeout(() => {
+        setMessageSuccess('');
+      }, 5000);
     }
   };
 
@@ -184,7 +165,7 @@ const QuoteCreateForm = ({ modalClose, movieId }) => {
           <Button type='submit' disabled={formIsValid}>
             {t('publish')}
           </Button>
-          <Button type='button' onClick={modalClose} disabled={true}>
+          <Button type='button' onClick={props.modalClose} disabled={true}>
             {t('close')}
           </Button>
         </div>
@@ -193,4 +174,16 @@ const QuoteCreateForm = ({ modalClose, movieId }) => {
   );
 };
 
-export default QuoteCreateForm;
+const mapStateToProps = (state) => {
+  return {
+    movie: state.movie.movie,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    CreateQuote: (quote) => dispatch(actions.CreateQuote(quote)),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(QuoteCreateForm);

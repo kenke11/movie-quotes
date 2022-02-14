@@ -3,4 +3,6 @@ export const SET_MOVIE = 'SET_MOVIE';
 export const FETCH_MOVIES_FAIL = 'FETCH_MOVIES_FAIL';
 export const FETCH_MOVIE_FAIL = 'FETCH_MOVIES_FAIL';
 export const DELETE_MOVIE = 'DELETE_MOVIE';
+export const CREATE_QUOTE = 'CREATE_QUOTE';
+export const CREATE_QUOTE_FAIL = 'CREATE_QUOTE_FAIL';
 export const DELETE_QUOTE = 'DELETE_QUOTE';
