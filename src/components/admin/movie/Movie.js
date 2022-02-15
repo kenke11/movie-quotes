@@ -7,8 +7,6 @@ import { connect } from 'react-redux';
 const Movie = (props) => {
   const { i18n } = useTranslation();
 
-  // TODO
-  // ნოთიფიქეიშენის და სთორიდან წაშლის ფუნქციონალი
   const deleteMovieHandler = () => {
     props.DeleteMovie(props.movie.id);
   };

@@ -9,10 +9,10 @@ const MovieQuotes = ({ quotes, movieId }) => {
 
   const [quoteCreateModalIsOpen, setQuoteCreateModalIsOpen] = useState(false);
 
-  const [searchValue, setSearchValue] = useState('');
+  const [searchQuoteValue, setSearchQuoteValue] = useState('');
 
-  const searchHandler = (e) => {
-    setSearchValue(e.target.value);
+  const searchQuoteHandler = (e) => {
+    setSearchQuoteValue(e.target.value);
   };
 
   const modalClose = () => {
@@ -24,10 +24,11 @@ const MovieQuotes = ({ quotes, movieId }) => {
       <div className='mt-6 rounded-lg p-10 border border-gray-800 '>
         <div className='w-full flex'>
           <input
-            onClick={searchHandler}
+            onChange={searchQuoteHandler}
             className='w-full px-5 py-3 rounded-md bg-gray-800 text-white focus:outline-none focus:border-orange-400 focus:ring-2 focus:ring-orange-400 rounded-r-none'
             type='text'
             placeholder={t('search')}
+            value={searchQuoteValue}
           />
           <Button
             type='button'
@@ -69,9 +70,21 @@ const MovieQuotes = ({ quotes, movieId }) => {
               </tr>
             </thead>
             <tbody className='text-white divide-y divide-gray-900  overflow-y-auto'>
-              {quotes.map((quote) => (
-                <MovieQuote key={quote.id} quote={quote} movieId={movieId} />
-              ))}
+              {quotes
+                .filter((value) => {
+                  if (searchQuoteValue === '') {
+                    return value;
+                  } else if (
+                    value.quote[i18n.language]
+                      .toLowerCase()
+                      .includes(searchQuoteValue.toLowerCase())
+                  ) {
+                    return value;
+                  }
+                })
+                .map((quote) => (
+                  <MovieQuote key={quote.id} quote={quote} movieId={movieId} />
+                ))}
             </tbody>
           </table>
         </div>

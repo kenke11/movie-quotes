@@ -65,8 +65,6 @@ const MovieCreateForm = () => {
       data.append('name_ge', nameGe);
       data.append('img', imgFile);
 
-      console.log(data);
-
       axios
         .post(
           'https://movie-quotes-api.tazo.redberryinternship.ge/api/movie/create',

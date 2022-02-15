@@ -73,7 +73,6 @@ const QuoteEditForm = ({ modalClose, quote }) => {
           data
         )
         .then((response) => {
-          console.log(response);
           if (response.status === 200) {
             setMessageSuccess(response.data.message);
             setImgFile(undefined);

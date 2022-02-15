@@ -59,8 +59,6 @@ const QuoteCreateForm = (props) => {
   const quoteCreateHandler = async (e) => {
     e.preventDefault();
 
-    console.log([quoteEn, quoteGe, imgFile, props.movieId]);
-
     const quote = { quoteEn, quoteGe, imgFile, movieId: props.movieId };
 
     if (formIsValid) {
