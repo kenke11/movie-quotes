@@ -24,15 +24,18 @@ const Login = () => {
   const submitHandler = (e) => {
     e.preventDefault();
 
-    fetch('http://127.0.0.1:8000/api/admin_panel/login', {
-      method: 'POST',
-      body: JSON.stringify({
-        email,
-        password,
-        returnSecureToken: true,
-      }),
-      headers: { 'Content-Type': 'application/json' },
-    })
+    fetch(
+      'https://movie-quotes-api.tazo.redberryinternship.ge/api/admin_panel/login',
+      {
+        method: 'POST',
+        body: JSON.stringify({
+          email,
+          password,
+          returnSecureToken: true,
+        }),
+        headers: { 'Content-Type': 'application/json' },
+      }
+    )
       .then((response) => {
         if (response.ok) {
           return response.json();

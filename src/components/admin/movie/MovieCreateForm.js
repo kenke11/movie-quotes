@@ -68,7 +68,10 @@ const MovieCreateForm = () => {
       console.log(data);
 
       axios
-        .post('http://127.0.0.1:8000/api/movie/create', data)
+        .post(
+          'https://movie-quotes-api.tazo.redberryinternship.ge/api/movie/create',
+          data
+        )
         .then((response) => {
           console.log(response);
           if (response.status === 200) {

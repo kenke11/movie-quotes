@@ -11,7 +11,7 @@ const Movie = () => {
   const [isLoading, setIsLoading] = useState(false);
   const { t, i18n } = useTranslation();
 
-  const apiPatch = 'http://127.0.0.1:8000/';
+  const apiPatch = 'https://movie-quotes-api.tazo.redberryinternship.ge/';
 
   useEffect(() => {
     setIsLoading(false);

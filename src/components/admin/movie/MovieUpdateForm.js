@@ -9,7 +9,7 @@ const isNotTreeChars = (value) => value.trim().length > 2;
 const MovieUpdateForm = ({ movie }) => {
   const { t } = useTranslation();
 
-  const movieImg = `http://127.0.0.1:8000/storage/${movie.img}`;
+  const movieImg = `https://movie-quotes-api.tazo.redberryinternship.ge/storage/${movie.img}`;
 
   const [imgFile, setImgFile] = useState();
   const [preview, setPreview] = useState();
@@ -68,7 +68,10 @@ const MovieUpdateForm = ({ movie }) => {
       data.append('img', imgFile);
 
       axios
-        .post(`http://127.0.0.1:8000/api/movie/${movie.id}/update`, data)
+        .post(
+          `https://movie-quotes-api.tazo.redberryinternship.ge/api/movie/${movie.id}/update`,
+          data
+        )
         .then((response) => {
           if (response.status === 200) {
             setMessageSuccess(response.data.message);

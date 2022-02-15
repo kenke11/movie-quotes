@@ -13,7 +13,7 @@ import {
 export const InitMovies = () => {
   return (dispatch) => {
     axios
-      .get('http://127.0.0.1:8000/api/movies')
+      .get('https://movie-quotes-api.tazo.redberryinternship.ge/api/movies')
       .then((res) => {
         dispatch(setMovies(res.data));
       })
@@ -26,16 +26,22 @@ export const InitMovies = () => {
 
 export const DeleteMovie = (id) => {
   return (dispatch) => {
-    axios.delete(`http://127.0.0.1:8000/api/movie/${id}/delete`).then((res) => {
-      dispatch(removeMovie(id));
-    });
+    axios
+      .delete(
+        `https://movie-quotes-api.tazo.redberryinternship.ge/movie/${id}/delete`
+      )
+      .then((res) => {
+        dispatch(removeMovie(id));
+      });
   };
 };
 
 export const InitMovie = (id) => {
   return (dispatch) => {
     axios
-      .get(`http://127.0.0.1:8000/api/movie/${id}/quotes`)
+      .get(
+        `https://movie-quotes-api.tazo.redberryinternship.ge/api/movie/${id}/quotes`
+      )
       .then((res) => {
         dispatch(setMovie(id, res.data));
       })
@@ -56,7 +62,10 @@ export const CreateQuote = (quote) => {
 
   return (dispatch) => {
     axios
-      .post(`http://127.0.0.1:8000/api/quote/create`, data)
+      .post(
+        `https://movie-quotes-api.tazo.redberryinternship.ge/api/quote/create`,
+        data
+      )
       .then((response) => {
         dispatch(storeQuote(response.data));
       })
@@ -68,9 +77,13 @@ export const CreateQuote = (quote) => {
 
 export const DeleteQuote = (id, movieId) => {
   return (dispatch) => {
-    axios.delete(`http://127.0.0.1:8000/api/quote/${id}/delete`).then((res) => {
-      dispatch(removeQuote(id, movieId));
-    });
+    axios
+      .delete(
+        `https://movie-quotes-api.tazo.redberryinternship.ge/api/quote/${id}/delete`
+      )
+      .then((res) => {
+        dispatch(removeQuote(id, movieId));
+      });
   };
 };
 
