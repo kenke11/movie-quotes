@@ -28,7 +28,7 @@ export const DeleteMovie = (id) => {
   return (dispatch) => {
     axios
       .delete(
-        `https://movie-quotes-api.tazo.redberryinternship.ge/movie/${id}/delete`
+        `https://movie-quotes-api.tazo.redberryinternship.ge/api/movie/${id}/delete`
       )
       .then((res) => {
         dispatch(removeMovie(id));
