@@ -17,7 +17,7 @@ function App() {
   return (
     <Fragment>
       {authCtx.isLoggedIn && (
-        <div className='py-0.5 px-5 bg-gray-800 text-white w-full text-sm z-50'>
+        <div className='py-0.5 px-5 bg-gray-800 text-white w-full text-sm fixed admin-nav-header'>
           <nav>
             <ul className='flex justify-between text-gray-300'>
               <div className='flex space-x-5'>
