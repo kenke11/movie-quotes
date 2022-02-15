@@ -3,35 +3,38 @@ import MovieContainer from './MovieContainer';
 import MovieError from './MovieError';
 import MovieLoader from './MovieLoader';
 import { useTranslation } from 'react-i18next';
+import * as actions from '../../store/actions';
+import { connect } from 'react-redux';
 
-const Movie = () => {
+const Movie = (props) => {
   const [movie, setMovie] = useState([]);
   const [quote, setQuote] = useState('');
-  const [error, setError] = useState(null);
+  const [error, setError] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const { t, i18n } = useTranslation();
 
-  const apiPatch = 'https://movie-quotes-api.tazo.redberryinternship.ge/';
-
   useEffect(() => {
     setIsLoading(false);
-    setTimeout(() => {
-      fetch(`${apiPatch}api/movies`)
-        .then((res) => res.json())
-        .then((movies) => {
-          const result = movies
-            .sort(() => Math.random() - Math.random())
-            .find(() => true);
-          setMovie(result);
-          setQuote(result.quotes);
-          setIsLoading(true);
-        })
-        .catch((error) => {
-          console.log('request failed', error);
-          setError(error);
-        });
-    }, 1500);
+    props.InitMovies();
+    setError(false);
   }, []);
+
+  useEffect(() => {
+    setTimeout(() => {
+      if (props.movies.length > 0 && !error) {
+        const randomMovie = props.movies
+          .sort(() => Math.random() - Math.random())
+          .find(() => true);
+        setMovie(randomMovie);
+        setQuote(randomMovie.quotes);
+        setIsLoading(true);
+      } else if (props.movies.length === 0) {
+        setTimeout(() => {
+          setError(true);
+        }, 1000);
+      }
+    }, 1500);
+  }, [props.movies]);
 
   const quoteTitle = quote['0']
     ? quote['0'].quote[i18n.language].length > 50
@@ -48,4 +51,16 @@ const Movie = () => {
   );
 };
 
-export default Movie;
+const mapStateToProps = (state) => {
+  return {
+    movies: state.movies.list,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    InitMovies: () => dispatch(actions.InitMovies()),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Movie);
