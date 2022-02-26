@@ -3,7 +3,7 @@ import QuoteEditForm from './QuoteEditForm';
 
 const QuoteEditModal = ({ modalClose, quote }) => {
   return (
-    <div>
+    <div className='overscroll-y-auto'>
       <div onClick={modalClose} className={classes.backdrop} />
       <div className={classes.modal}>
         <QuoteEditForm modalClose={modalClose} quote={quote} />
