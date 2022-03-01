@@ -2,6 +2,7 @@ import { useTranslation } from 'react-i18next';
 import { useContext, useState } from 'react';
 import AuthContext from '../../store/auth-context';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 const Login = () => {
   const { t } = useTranslation();
@@ -24,35 +25,35 @@ const Login = () => {
   const submitHandler = (e) => {
     e.preventDefault();
 
-    fetch(
-      'https://movie-quotes-api.tazo.redberryinternship.ge/api/admin_panel/login',
-      {
-        method: 'POST',
-        body: JSON.stringify({
-          email,
-          password,
-          returnSecureToken: true,
-        }),
-        headers: { 'Content-Type': 'application/json' },
-      }
-    )
+    axios
+      .get('http://localhost:8000/sanctum/csrf-cookie', {
+        withCredentials: true,
+      })
       .then((response) => {
-        if (response.ok) {
-          return response.json();
-        } else {
-          let incorrectUser = 'Authentication failed!';
-          throw new Error(incorrectUser);
-        }
-      })
-      .then((data) => {
-        const expirationTime = new Date(
-          new Date().getTime() + +data.expiresIn * 1000
-        );
-        authCtx.login(data.idToken, expirationTime.toISOString());
-        navigate('/admin-panel', { replace: true });
-      })
-      .catch((error) => {
-        console.log('request errors', error);
+        console.log(response);
+
+        axios
+          .post(
+            'http://localhost:8000/api/login',
+            {
+              email,
+              password,
+            },
+            {
+              withCredentials: true,
+            }
+          )
+          .then((data) => {
+            console.log(data);
+
+            if (data.data.status === 200) {
+              const expirationTime = new Date(
+                new Date().getTime() + +data.data.expiresIn * 1000
+              );
+              authCtx.login(data.data.token, expirationTime.toISOString());
+              navigate('/admin-panel', { replace: true });
+            }
+          });
       });
 
     setEmail('');

@@ -13,7 +13,9 @@ import {
 export const InitMovies = () => {
   return (dispatch) => {
     axios
-      .get('https://movie-quotes-api.tazo.redberryinternship.ge/api/movies')
+      .get('http://localhost:8000/api/movies', {
+        withCredentials: true,
+      })
       .then((res) => {
         dispatch(setMovies(res.data));
       })
@@ -27,11 +29,20 @@ export const InitMovies = () => {
 export const DeleteMovie = (id) => {
   return (dispatch) => {
     axios
-      .delete(
-        `https://movie-quotes-api.tazo.redberryinternship.ge/api/movie/${id}/delete`
-      )
-      .then((res) => {
-        dispatch(removeMovie(id));
+      .get('http://localhost:8000/sanctum/csrf-cookie', {
+        withCredentials: true,
+      })
+      .then((response) => {
+        console.log(response);
+
+        axios
+          .delete(`http://localhost:8000/api/movie/${id}/delete`, {
+            withCredentials: true,
+          })
+          .then((res) => {
+            console.log(res);
+            dispatch(removeMovie(id));
+          });
       });
   };
 };
@@ -39,10 +50,11 @@ export const DeleteMovie = (id) => {
 export const InitMovie = (id) => {
   return (dispatch) => {
     axios
-      .get(
-        `https://movie-quotes-api.tazo.redberryinternship.ge/api/movie/${id}/quotes`
-      )
+      .get(`http://localhost:8000/api/movie/${id}/quotes`, {
+        withCredentials: true,
+      })
       .then((res) => {
+        console.log(res);
         dispatch(setMovie(id, res.data));
       })
       .catch((error) => {
@@ -62,15 +74,22 @@ export const CreateQuote = (quote) => {
 
   return (dispatch) => {
     axios
-      .post(
-        `https://movie-quotes-api.tazo.redberryinternship.ge/api/quote/create`,
-        data
-      )
-      .then((response) => {
-        dispatch(storeQuote(response.data));
+      .get('http://localhost:8000/sanctum/csrf-cookie', {
+        withCredentials: true,
       })
-      .catch((error) => {
-        dispatch(storeQuoteFail(error));
+      .then((response) => {
+        console.log(response);
+
+        axios
+          .post(`http://localhost:8000/api/quote/create`, data, {
+            withCredentials: true,
+          })
+          .then((response) => {
+            dispatch(storeQuote(response.data));
+          })
+          .catch((error) => {
+            dispatch(storeQuoteFail(error));
+          });
       });
   };
 };
@@ -78,11 +97,20 @@ export const CreateQuote = (quote) => {
 export const DeleteQuote = (id, movieId) => {
   return (dispatch) => {
     axios
-      .delete(
-        `https://movie-quotes-api.tazo.redberryinternship.ge/api/quote/${id}/delete`
-      )
-      .then((res) => {
-        dispatch(removeQuote(id, movieId));
+      .get('http://localhost:8000/sanctum/csrf-cookie', {
+        withCredentials: true,
+      })
+      .then((response) => {
+        console.log(response);
+
+        axios
+          .delete(`http://localhost:8000/api/quote/${id}/delete`, {
+            withCredentials: true,
+          })
+          .then((res) => {
+            console.log(res);
+            dispatch(removeQuote(id, movieId));
+          });
       });
   };
 };

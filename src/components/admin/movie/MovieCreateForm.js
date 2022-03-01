@@ -66,28 +66,35 @@ const MovieCreateForm = () => {
       data.append('img', imgFile);
 
       axios
-        .post(
-          'https://movie-quotes-api.tazo.redberryinternship.ge/api/movie/create',
-          data
-        )
+        .get('http://localhost:8000/sanctum/csrf-cookie', {
+          withCredentials: true,
+        })
         .then((response) => {
           console.log(response);
-          if (response.status === 200) {
-            setMessageSuccess(response.data.message);
-            setNameEn('');
-            setNameGe('');
-            setImgFile(undefined);
-          } else {
-            setMessageError(response.data.message);
-          }
 
-          setTimeout(() => {
-            setMessageError('');
-            setMessageSuccess('');
-          }, 5000);
-        })
-        .catch((error) => {
-          console.log('request errors', error);
+          axios
+            .post('http://localhost:8000/api/movie/create', data, {
+              withCredentials: true,
+            })
+            .then((response) => {
+              console.log(response);
+              if (response.status === 200) {
+                setMessageSuccess(response.data.message);
+                setNameEn('');
+                setNameGe('');
+                setImgFile(undefined);
+              } else {
+                setMessageError(response.data.message);
+              }
+
+              setTimeout(() => {
+                setMessageError('');
+                setMessageSuccess('');
+              }, 5000);
+            })
+            .catch((error) => {
+              console.log('request errors', error);
+            });
         });
     }
   };
