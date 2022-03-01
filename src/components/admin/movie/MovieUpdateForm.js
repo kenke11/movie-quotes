@@ -80,7 +80,10 @@ const MovieUpdateForm = ({ movie }) => {
           axios
             .post(
               `https://movie-quotes-api.tazo.redberryinternship.ge/api/movie/${movie.id}/update`,
-              data
+              data,
+              {
+                withCredentials: true,
+              }
             )
             .then((response) => {
               if (response.status === 200) {
