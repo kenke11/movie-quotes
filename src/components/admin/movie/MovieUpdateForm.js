@@ -68,29 +68,40 @@ const MovieUpdateForm = ({ movie }) => {
       data.append('img', imgFile);
 
       axios
-        .post(
-          `https://movie-quotes-api.tazo.redberryinternship.ge/api/movie/${movie.id}/update`,
-          data
+        .get(
+          'https://movie-quotes-api.tazo.redberryinternship.ge/sanctum/csrf-cookie',
+          {
+            withCredentials: true,
+          }
         )
         .then((response) => {
-          if (response.status === 200) {
-            setMessageSuccess(response.data.message);
-            setImgFile(undefined);
-          } else {
-            setMessageError(response.data.message);
-          }
+          console.log(response);
 
-          setTimeout(() => {
-            setMessageError('');
-            setMessageSuccess('');
-          }, 5000);
-        })
-        .catch((error) => {
-          setMessageError('Something went wrong!');
-          setTimeout(() => {
-            setMessageError('');
-          }, 5000);
-          console.log('request errors', error);
+          axios
+            .post(
+              `https://movie-quotes-api.tazo.redberryinternship.ge/api/movie/${movie.id}/update`,
+              data
+            )
+            .then((response) => {
+              if (response.status === 200) {
+                setMessageSuccess(response.data.message);
+                setImgFile(undefined);
+              } else {
+                setMessageError(response.data.message);
+              }
+
+              setTimeout(() => {
+                setMessageError('');
+                setMessageSuccess('');
+              }, 5000);
+            })
+            .catch((error) => {
+              setMessageError('Something went wrong!');
+              setTimeout(() => {
+                setMessageError('');
+              }, 5000);
+              console.log('request errors', error);
+            });
         });
     }
   };
