@@ -26,15 +26,18 @@ const Login = () => {
     e.preventDefault();
 
     axios
-      .get('http://localhost:8000/sanctum/csrf-cookie', {
-        withCredentials: true,
-      })
+      .get(
+        'https://movie-quotes-api.tazo.redberryinternship.ge/sanctum/csrf-cookie',
+        {
+          withCredentials: true,
+        }
+      )
       .then((response) => {
         console.log(response);
 
         axios
           .post(
-            'http://localhost:8000/api/login',
+            'https://movie-quotes-api.tazo.redberryinternship.ge/api/login',
             {
               email,
               password,
