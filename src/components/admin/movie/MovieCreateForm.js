@@ -55,7 +55,7 @@ const MovieCreateForm = () => {
     setFormIsValid(enteredNameGeIsValid && enteredNameEnIsValid && !!imgFile);
   }, [imgFile, nameEn, nameGe]);
 
-  const movieCreateFormHandler = (event) => {
+  const movieCreateFormHandler = async (event) => {
     event.preventDefault();
 
     if (formIsValid) {
@@ -65,37 +65,31 @@ const MovieCreateForm = () => {
       data.append('name_ge', nameGe);
       data.append('img', imgFile);
 
-      axios
-        .get('/sanctum/csrf-cookie', {
+      await axios.get(`${process.env.REACT_APP_API_URL}/sanctum/csrf-cookie`, {
+        withCredentials: true,
+      });
+
+      let res = await axios.post(
+        `${process.env.REACT_APP_API_URL}/api/movie/create`,
+        data,
+        {
           withCredentials: true,
-        })
-        .then((response) => {
-          console.log(response);
+        }
+      );
 
-          axios
-            .post(`${process.env.REACT_APP_API_URL}/api/movie/create`, data, {
-              withCredentials: true,
-            })
-            .then((response) => {
-              console.log(response);
-              if (response.status === 200) {
-                setMessageSuccess(response.data.message);
-                setNameEn('');
-                setNameGe('');
-                setImgFile(undefined);
-              } else {
-                setMessageError(response.data.message);
-              }
+      if (res.status === 200) {
+        await setMessageSuccess(res.data.message);
+        await setNameEn('');
+        await setNameGe('');
+        await setImgFile(undefined);
+      } else {
+        await setMessageError(res.data.message);
+      }
 
-              setTimeout(() => {
-                setMessageError('');
-                setMessageSuccess('');
-              }, 5000);
-            })
-            .catch((error) => {
-              console.log('request errors', error);
-            });
-        });
+      await setTimeout(() => {
+        setMessageError('');
+        setMessageSuccess('');
+      }, 5000);
     }
   };
 

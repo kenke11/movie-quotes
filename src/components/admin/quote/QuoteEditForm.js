@@ -57,7 +57,7 @@ const QuoteEditForm = ({ modalClose, quote }) => {
     setFormIsValid(enteredNameGeIsValid && enteredNameEnIsValid && !!preview);
   }, [preview, quoteEn, quoteGe]);
 
-  const quoteUpdateHandler = (e) => {
+  const quoteUpdateHandler = async (e) => {
     e.preventDefault();
 
     if (formIsValid) {
@@ -67,31 +67,40 @@ const QuoteEditForm = ({ modalClose, quote }) => {
       data.append('quote_ge', quoteGe);
       data.append('img', imgFile);
 
-      axios
-        .post(
-          `${process.env.REACT_APP_API_URL}/api/quote/${quote.id}/update`,
-          data
-        )
-        .then((response) => {
-          if (response.status === 200) {
-            setMessageSuccess(response.data.message);
-            setImgFile(undefined);
-          } else {
-            setMessageError(response.data.message);
+      try {
+        await axios.get(
+          `${process.env.REACT_APP_API_URL}/sanctum/csrf-cookie`,
+          {
+            withCredentials: true,
           }
+        );
 
-          setTimeout(() => {
-            setMessageError('');
-            setMessageSuccess('');
-          }, 5000);
-        })
-        .catch((error) => {
-          setMessageError('Something went wrong!');
-          setTimeout(() => {
-            setMessageError('');
-          }, 5000);
-          console.log('request errors', error);
-        });
+        let res = await axios.post(
+          `${process.env.REACT_APP_API_URL}/api/quote/${quote.id}/update`,
+          data,
+          {
+            withCredentials: true,
+          }
+        );
+
+        if (res.status === 200) {
+          await setMessageSuccess(res.data.message);
+          await setImgFile(undefined);
+        } else {
+          await setMessageError(res.data.message);
+        }
+
+        await setTimeout(() => {
+          setMessageError('');
+          setMessageSuccess('');
+        }, 5000);
+      } catch (error) {
+        console.log(error);
+        setMessageError('Something went wrong!');
+        setTimeout(() => {
+          setMessageError('');
+        }, 5000);
+      }
     }
   };
 

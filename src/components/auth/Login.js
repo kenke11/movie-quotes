@@ -22,48 +22,35 @@ const Login = () => {
     setPassword(e.target.value);
   };
 
-  const submitHandler = (e) => {
+  const submitHandler = async (e) => {
     e.preventDefault();
 
-    axios
-      .get(`${process.env.REACT_APP_API_URL}/sanctum/csrf-cookie`, {
+    await axios.get(`${process.env.REACT_APP_API_URL}/sanctum/csrf-cookie`, {
+      withCredentials: true,
+    });
+
+    let res = await axios.post(
+      `${process.env.REACT_APP_API_URL}/api/login`,
+      {
+        email,
+        password,
+      },
+      {
         withCredentials: true,
-      })
-      .then((response) => {
-        console.log(response);
+      }
+    );
 
-        axios
-          .post(
-            `${process.env.REACT_APP_API_URL}/api/login`,
-            {
-              email,
-              password,
-            },
-            {
-              withCredentials: true,
-            }
-          )
-          .then((data) => {
-            console.log(data);
+    if (res.data.status === 200) {
+      const expirationTime = await new Date(
+        new Date().getTime() + +res.data.expiresIn * 1000
+      );
+      await authCtx.login(res.data.token, expirationTime.toISOString());
+      await navigate('/admin-panel', { replace: true });
+    }
 
-            if (data.data.status === 200) {
-              const expirationTime = new Date(
-                new Date().getTime() + +data.data.expiresIn * 1000
-              );
-              authCtx.login(data.data.token, expirationTime.toISOString());
-              navigate('/admin-panel', { replace: true });
-            }
-          });
-      });
-
-    setEmail('');
-    setPassword('');
+    await setEmail('');
+    await setPassword('');
   };
-
-  try {
-  } catch (incorrectUser) {
-    console.log(incorrectUser);
-  }
 
   return (
     <div className='i-center'>

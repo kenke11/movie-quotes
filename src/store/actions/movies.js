@@ -11,56 +11,51 @@ import {
 } from './actionType';
 
 export const InitMovies = () => {
-  return (dispatch) => {
-    axios
-      .get(`${process.env.REACT_APP_API_URL}/api/movies`, {
+  return async (dispatch) => {
+    try {
+      let res = await axios.get(`${process.env.REACT_APP_API_URL}/api/movies`, {
         withCredentials: true,
-      })
-      .then((res) => {
-        dispatch(setMovies(res.data));
-      })
-      .catch((error) => {
-        console.log('error', error);
-        dispatch(fetchMoviesFail());
       });
+
+      await dispatch(setMovies(res.data));
+    } catch (error) {
+      console.log(error);
+      dispatch(fetchMoviesFail());
+    }
   };
 };
 
 export const DeleteMovie = (id) => {
-  return (dispatch) => {
-    axios
-      .get(`${process.env.REACT_APP_API_URL}/sanctum/csrf-cookie`, {
-        withCredentials: true,
-      })
-      .then((response) => {
-        console.log(response);
+  return async (dispatch) => {
+    await axios.get(`${process.env.REACT_APP_API_URL}/sanctum/csrf-cookie`, {
+      withCredentials: true,
+    });
 
-        axios
-          .delete(`${process.env.REACT_APP_API_URL}/api/movie/${id}/delete`, {
-            withCredentials: true,
-          })
-          .then((res) => {
-            console.log(res);
-            dispatch(removeMovie(id));
-          });
-      });
+    await axios.delete(
+      `${process.env.REACT_APP_API_URL}/api/movie/${id}/delete`,
+      {
+        withCredentials: true,
+      }
+    );
+
+    await dispatch(removeMovie(id));
   };
 };
 
 export const InitMovie = (id) => {
-  return (dispatch) => {
-    axios
-      .get(`${process.env.REACT_APP_API_URL}/api/movie/${id}/quotes`, {
-        withCredentials: true,
-      })
-      .then((res) => {
-        console.log(res);
-        dispatch(setMovie(id, res.data));
-      })
-      .catch((error) => {
-        console.log('error', error);
-        dispatch(fetchMovieFail(error));
-      });
+  return async (dispatch) => {
+    try {
+      let res = await axios.get(
+        `${process.env.REACT_APP_API_URL}/api/movie/${id}/quotes`,
+        {
+          withCredentials: true,
+        }
+      );
+
+      await dispatch(setMovie(id, res.data));
+    } catch (error) {
+      await dispatch(fetchMovieFail(error));
+    }
   };
 };
 
@@ -72,45 +67,41 @@ export const CreateQuote = (quote) => {
   data.append('movie_id', quote.movieId);
   data.append('quote_img', quote.imgFile);
 
-  return (dispatch) => {
-    axios
-      .get(`${process.env.REACT_APP_API_URL}/sanctum/csrf-cookie`, {
+  return async (dispatch) => {
+    try {
+      await axios.get(`${process.env.REACT_APP_API_URL}/sanctum/csrf-cookie`, {
         withCredentials: true,
-      })
-      .then((response) => {
-        console.log(response);
-
-        axios
-          .post(`${process.env.REACT_APP_API_URL}/api/quote/create`, data, {
-            withCredentials: true,
-          })
-          .then((response) => {
-            dispatch(storeQuote(response.data));
-          })
-          .catch((error) => {
-            dispatch(storeQuoteFail(error));
-          });
       });
+
+      let res = await axios.post(
+        `${process.env.REACT_APP_API_URL}/api/quote/create`,
+        data,
+        {
+          withCredentials: true,
+        }
+      );
+
+      await dispatch(storeQuote(res.data));
+    } catch (error) {
+      await dispatch(storeQuoteFail(error));
+    }
   };
 };
 
 export const DeleteQuote = (id, movieId) => {
-  return (dispatch) => {
-    axios
-      .get(`${process.env.REACT_APP_API_URL}/sanctum/csrf-cookie`, {
-        withCredentials: true,
-      })
-      .then((response) => {
-        console.log(response);
+  return async (dispatch) => {
+    await axios.get(`${process.env.REACT_APP_API_URL}/sanctum/csrf-cookie`, {
+      withCredentials: true,
+    });
 
-        axios
-          .delete(`${process.env.REACT_APP_API_URL}/api/quote/${id}/delete`, {
-            withCredentials: true,
-          })
-          .then((res) => {
-            dispatch(removeQuote(id, movieId));
-          });
-      });
+    await axios.delete(
+      `${process.env.REACT_APP_API_URL}/api/quote/${id}/delete`,
+      {
+        withCredentials: true,
+      }
+    );
+
+    await dispatch(removeQuote(id, movieId));
   };
 };
 

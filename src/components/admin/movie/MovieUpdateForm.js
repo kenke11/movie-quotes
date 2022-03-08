@@ -57,7 +57,7 @@ const MovieUpdateForm = ({ movie }) => {
     setFormIsValid(enteredNameGeIsValid && enteredNameEnIsValid && !!preview);
   }, [preview, nameEn, nameGe]);
 
-  const movieUpdateHandler = (e) => {
+  const movieUpdateHandler = async (e) => {
     e.preventDefault();
 
     if (formIsValid) {
@@ -67,42 +67,38 @@ const MovieUpdateForm = ({ movie }) => {
       data.append('name_ge', nameGe);
       data.append('img', imgFile);
 
-      axios
-        .get(`${process.env.REACT_APP_API_URL}/sanctum/csrf-cookie`, {
-          withCredentials: true,
-        })
-        .then((response) => {
-          console.log(response);
+      try {
+        await axios.get(
+          `${process.env.REACT_APP_API_URL}/sanctum/csrf-cookie`,
+          {
+            withCredentials: true,
+          }
+        );
+        let res = await axios.post(
+          `${process.env.REACT_APP_API_URL}/api/movie/${movie.id}/update`,
+          data,
+          {
+            withCredentials: true,
+          }
+        );
 
-          axios
-            .post(
-              `${process.env.REACT_APP_API_URL}/api/movie/${movie.id}/update`,
-              data,
-              {
-                withCredentials: true,
-              }
-            )
-            .then((response) => {
-              if (response.status === 200) {
-                setMessageSuccess(response.data.message);
-                setImgFile(undefined);
-              } else {
-                setMessageError(response.data.message);
-              }
+        if (res.status === 200) {
+          await setMessageSuccess(res.data.message);
+          await setImgFile(undefined);
+        } else {
+          await setMessageError(res.data.message);
+        }
 
-              setTimeout(() => {
-                setMessageError('');
-                setMessageSuccess('');
-              }, 5000);
-            })
-            .catch((error) => {
-              setMessageError('Something went wrong!');
-              setTimeout(() => {
-                setMessageError('');
-              }, 5000);
-              console.log('request errors', error);
-            });
-        });
+        await setTimeout(() => {
+          setMessageError('');
+          setMessageSuccess('');
+        }, 5000);
+      } catch (error) {
+        await setMessageError('Something went wrong!');
+        await setTimeout(() => {
+          setMessageError('');
+        }, 5000);
+      }
     }
   };
 
