@@ -7,7 +7,7 @@ const Quote = ({ quote }) => {
     <div className='bg-white rounded-xl my-10 max-w-2xl m-auto'>
       <img
         className='flex justify-center text-center m-auto rounded-xl w-full'
-        src={`https://movie-quotes-api.tazo.redberryinternship.ge/storage/${quote.quote_img}`}
+        src={`${process.env.REACT_APP_API_URL}/storage/${quote.quote_img}`}
         alt='quote img'
       />
       <div className='py-3 overflow-y-auto max-h-36'>

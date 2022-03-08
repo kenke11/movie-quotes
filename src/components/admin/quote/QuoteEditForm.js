@@ -9,7 +9,7 @@ const isNotTreeChars = (value) => value.trim().length > 2;
 const QuoteEditForm = ({ modalClose, quote }) => {
   const { t } = useTranslation();
 
-  const movieImg = `https://movie-quotes-api.tazo.redberryinternship.ge/storage/${quote.quote_img}`;
+  const movieImg = `${process.env.REACT_APP_API_URL}/storage/${quote.quote_img}`;
 
   const [imgFile, setImgFile] = useState();
   const [preview, setPreview] = useState(movieImg);
@@ -69,7 +69,7 @@ const QuoteEditForm = ({ modalClose, quote }) => {
 
       axios
         .post(
-          `https://movie-quotes-api.tazo.redberryinternship.ge/api/quote/${quote.id}/update`,
+          `${process.env.REACT_APP_API_URL}/api/quote/${quote.id}/update`,
           data
         )
         .then((response) => {

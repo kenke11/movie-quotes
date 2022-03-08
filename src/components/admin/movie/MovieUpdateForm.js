@@ -9,7 +9,7 @@ const isNotTreeChars = (value) => value.trim().length > 2;
 const MovieUpdateForm = ({ movie }) => {
   const { t } = useTranslation();
 
-  const movieImg = `https://movie-quotes-api.tazo.redberryinternship.ge/storage/${movie.img}`;
+  const movieImg = `${process.env.REACT_APP_API_URL}/storage/${movie.img}`;
 
   const [imgFile, setImgFile] = useState();
   const [preview, setPreview] = useState();
@@ -68,18 +68,15 @@ const MovieUpdateForm = ({ movie }) => {
       data.append('img', imgFile);
 
       axios
-        .get(
-          'https://movie-quotes-api.tazo.redberryinternship.ge/sanctum/csrf-cookie',
-          {
-            withCredentials: true,
-          }
-        )
+        .get(`${process.env.REACT_APP_API_URL}/sanctum/csrf-cookie`, {
+          withCredentials: true,
+        })
         .then((response) => {
           console.log(response);
 
           axios
             .post(
-              `https://movie-quotes-api.tazo.redberryinternship.ge/api/movie/${movie.id}/update`,
+              `${process.env.REACT_APP_API_URL}/api/movie/${movie.id}/update`,
               data,
               {
                 withCredentials: true,

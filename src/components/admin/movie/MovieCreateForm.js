@@ -66,23 +66,16 @@ const MovieCreateForm = () => {
       data.append('img', imgFile);
 
       axios
-        .get(
-          'https://movie-quotes-api.tazo.redberryinternship.ge/sanctum/csrf-cookie',
-          {
-            withCredentials: true,
-          }
-        )
+        .get('/sanctum/csrf-cookie', {
+          withCredentials: true,
+        })
         .then((response) => {
           console.log(response);
 
           axios
-            .post(
-              'https://movie-quotes-api.tazo.redberryinternship.ge/api/movie/create',
-              data,
-              {
-                withCredentials: true,
-              }
-            )
+            .post(`${process.env.REACT_APP_API_URL}/api/movie/create`, data, {
+              withCredentials: true,
+            })
             .then((response) => {
               console.log(response);
               if (response.status === 200) {

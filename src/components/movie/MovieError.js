@@ -16,7 +16,7 @@ const MovieError = () => {
         <div>
           <div>
             <img
-              src='https://movie-quotes-api.tazo.redberryinternship.ge/img/images.jpeg'
+              src={`${process.env.REACT_APP_API_URL}/img/images.jpeg`}
               className='flex justify-center text-center m-auto rounded-xl'
               alt='error'
             />

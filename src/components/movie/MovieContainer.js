@@ -9,7 +9,7 @@ const MovieContainer = ({ movie, title }) => {
     <>
       <div>
         <img
-          src={`https://movie-quotes-api.tazo.redberryinternship.ge/storage/${movie.img}`}
+          src={`${process.env.REACT_APP_API_URL}/storage/${movie.img}`}
           className='flex justify-center text-center m-auto rounded-xl'
           width='700px'
           alt='movie'
