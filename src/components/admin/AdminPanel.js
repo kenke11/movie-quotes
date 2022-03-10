@@ -1,8 +1,8 @@
 import { useState } from 'react';
-import classes from './AdminPanel.module.css';
 import { Outlet } from 'react-router-dom';
-import AdminNav from './AdminNav';
-import AdminPanelHeader from './AdminPanelHeader';
+import classes from './AdminPanel.module.css';
+import AdminNav from 'components/admin/AdminNav';
+import AdminPanelHeader from 'components/admin/AdminPanelHeader';
 
 const AdminPanel = () => {
   const [navbarIsOpen, setNavbarIsOpen] = useState(false);

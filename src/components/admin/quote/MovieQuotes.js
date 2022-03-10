@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import MovieQuote from './MovieQuote';
-import Button from '../../UI/Button';
-import QuoteCreateModal from './QuoteCreateModal';
+import MovieQuote from 'components/admin/quote/MovieQuote';
+import Button from 'components/UI/Button';
+import QuoteCreateModal from 'components/admin/quote/QuoteCreateModal';
 
 const MovieQuotes = ({ quotes, movieId }) => {
   const { t, i18n } = useTranslation();

@@ -1,9 +1,9 @@
-import moment from 'moment';
-import { useTranslation } from 'react-i18next';
 import { useState } from 'react';
-import QuoteEditModal from './QuoteEditModal';
-import * as actions from '../../../store/actions';
+import { useTranslation } from 'react-i18next';
+import QuoteEditModal from 'components/admin/quote/QuoteEditModal';
 import { connect } from 'react-redux';
+import moment from 'moment';
+import * as actions from 'store/actions';
 
 const MovieQuote = (props) => {
   const { i18n } = useTranslation();

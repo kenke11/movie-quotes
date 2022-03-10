@@ -1,8 +1,8 @@
-import classes from './AdminPanel.module.css';
-import { NavLink } from 'react-router-dom';
-import AuthContext from '../../store/auth-context';
 import { useContext } from 'react';
+import { NavLink } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import classes from './AdminPanel.module.css';
+import AuthContext from 'store/auth-context';
 
 const AdminNav = ({ navbarIsOpen }) => {
   const authCtx = useContext(AuthContext);

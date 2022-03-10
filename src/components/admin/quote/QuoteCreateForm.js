@@ -1,8 +1,8 @@
-import Button from '../../UI/Button';
-import { useTranslation } from 'react-i18next';
 import { useEffect, useState } from 'react';
-import * as actions from '../../../store/actions';
 import { connect } from 'react-redux';
+import { useTranslation } from 'react-i18next';
+import Button from 'components/UI/Button';
+import * as actions from 'store/actions';
 
 const isEmpty = (value) => value.trim() === '';
 const isNotTreeChars = (value) => value.trim().length > 2;
