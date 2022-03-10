@@ -1,10 +1,10 @@
 import classes from './MovieCatalog.module.css';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import Movie from './Movie';
 import i18n from 'i18next';
-import * as actions from '../../../store/actions/index';
 import { connect } from 'react-redux';
+import * as actions from 'store/actions/index';
+import Movie from 'components/admin/movie/Movie';
 
 const MovieCatalog = (props) => {
   const [isLoading, setIsLoading] = useState(false);

@@ -1,5 +1,5 @@
-import MovieCreateForm from './MovieCreateForm';
 import { useTranslation } from 'react-i18next';
+import MovieCreateForm from 'components/admin/movie/MovieCreateForm';
 
 const MovieCreate = () => {
   const { t } = useTranslation();

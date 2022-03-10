@@ -1,8 +1,8 @@
 import moment from 'moment';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
-import * as actions from '../../../store/actions';
 import { connect } from 'react-redux';
+import * as actions from 'store/actions';
 
 const Movie = (props) => {
   const { i18n } = useTranslation();

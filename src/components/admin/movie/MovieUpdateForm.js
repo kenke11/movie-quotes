@@ -1,7 +1,7 @@
-import Button from '../../UI/Button';
-import { useTranslation } from 'react-i18next';
 import { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import axios from 'axios';
+import Button from 'components/UI/Button';
 
 const isEmpty = (value) => value.trim() === '';
 const isNotTreeChars = (value) => value.trim().length > 2;

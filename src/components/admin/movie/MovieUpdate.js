@@ -1,10 +1,10 @@
-import { useParams } from 'react-router-dom';
-import MovieUpdateForm from './MovieUpdateForm';
 import { useEffect, useState } from 'react';
-import MovieQuotes from '../quote/MovieQuotes';
-import { useTranslation } from 'react-i18next';
-import * as actions from '../../../store/actions';
+import { useParams } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { useTranslation } from 'react-i18next';
+import * as actions from 'store/actions';
+import MovieQuotes from 'components/admin/quote/MovieQuotes';
+import MovieUpdateForm from 'components/admin/movie/MovieUpdateForm';
 
 const MovieUpdate = (props) => {
   const params = useParams();
