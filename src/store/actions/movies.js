@@ -19,7 +19,6 @@ export const InitMovies = () => {
 
       await dispatch(setMovies(res.data));
     } catch (error) {
-      console.log(error);
       dispatch(fetchMoviesFail());
     }
   };

@@ -95,7 +95,6 @@ const QuoteEditForm = ({ modalClose, quote }) => {
           setMessageSuccess('');
         }, 5000);
       } catch (error) {
-        console.log(error);
         setMessageError('Something went wrong!');
         setTimeout(() => {
           setMessageError('');

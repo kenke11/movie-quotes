@@ -42,12 +42,10 @@ const createQuote = (state, action) => {
 
   // eslint-disable-next-line array-callback-return
   const updatedMovie = updatedState.movie.map((movie) => {
-    console.log(movie.quotes);
     movie.quotes = movie.quotes.concat(quote);
     return movie;
   });
 
-  console.log(updatedMovie);
   return { ...state, movie: updatedMovie, error: false };
 };
 
