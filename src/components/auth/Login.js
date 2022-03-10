@@ -1,8 +1,8 @@
-import { useTranslation } from 'react-i18next';
 import { useContext, useState } from 'react';
-import AuthContext from '../../store/auth-context';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import axios from 'axios';
+import AuthContext from 'store/auth-context';
 
 const Login = () => {
   const { t } = useTranslation();

@@ -1,10 +1,10 @@
-import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import Quote from './Quote';
+import { connect } from 'react-redux';
+import { useParams } from 'react-router-dom';
+import Quote from 'components/quotes/Quote';
 import { BookLoader } from 'react-awesome-loaders';
 import { useTranslation } from 'react-i18next';
-import * as actions from '../../store/actions';
-import { connect } from 'react-redux';
+import * as actions from 'store/actions';
 
 const Quotes = (props) => {
   const [isLoading, setIsLoading] = useState(false);

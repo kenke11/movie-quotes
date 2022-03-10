@@ -6,7 +6,7 @@ import {
   FETCH_MOVIES_FAIL,
   SET_MOVIE,
   SET_MOVIES,
-} from '../actions/actionType';
+} from 'store/actions/actionType';
 
 const initialMoviesState = {
   list: [],

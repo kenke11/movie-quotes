@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import MovieContainer from './MovieContainer';
-import MovieError from './MovieError';
-import MovieLoader from './MovieLoader';
 import { useTranslation } from 'react-i18next';
-import * as actions from '../../store/actions';
+import MovieContainer from 'components/movie/MovieContainer';
+import MovieError from 'components/movie/MovieError';
+import MovieLoader from 'components/movie/MovieLoader';
 import { connect } from 'react-redux';
+import * as actions from 'store/actions';
 
 const Movie = (props) => {
   const [movie, setMovie] = useState([]);

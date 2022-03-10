@@ -4,4 +4,4 @@ export {
   DeleteQuote,
   InitMovie,
   CreateQuote,
-} from './movies';
+} from 'store/actions/movies';

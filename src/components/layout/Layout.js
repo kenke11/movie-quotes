@@ -1,5 +1,5 @@
-import Nav from '../changeLanguageNav/Nav';
 import { Outlet } from 'react-router-dom';
+import Nav from 'components/changeLanguageNav/Nav';
 
 const Layout = () => {
   return (

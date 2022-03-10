@@ -8,7 +8,7 @@ import {
   FETCH_MOVIE_FAIL,
   CREATE_QUOTE,
   CREATE_QUOTE_FAIL,
-} from './actionType';
+} from 'store/actions/actionType';
 
 export const InitMovies = () => {
   return async (dispatch) => {
