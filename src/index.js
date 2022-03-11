@@ -3,15 +3,15 @@ import { createStore, applyMiddleware, compose, combineReducers } from 'redux';
 import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import 'index.css';
+import App from 'App';
+import reportWebVitals from 'reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
 
-import './i18next';
-import { AuthContextProvider } from './store/auth-context';
+import 'i18next';
+import { AuthContextProvider } from 'store/auth-context';
 
-import MoviesReducer, { MovieReducer } from './store/reducers/movieReducer';
+import MoviesReducer, { MovieReducer } from 'store/reducers/movieReducer';
 
 const composeEnhancers =
   process.env.NODE_ENV === 'development'

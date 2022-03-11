@@ -1,4 +1,4 @@
-import classes from './QuoteEditModal.module.css';
+import classes from 'components/admin/quote/QuoteEditModal.module.css';
 import QuoteCreateForm from 'components/admin/quote/QuoteCreateForm';
 
 const QuoteCreateModal = ({ modalClose, movieId }) => {
