@@ -1,3 +1,5 @@
+import BurgerMenuIcon from 'components/UI/icons/BurgerMenuIcon';
+
 const AdminPanelHeader = ({ navbarIsOpen, burgerBtnHandler }) => {
   const burgerClasses = [navbarIsOpen ? 'bg-light-orange' : ''];
 
@@ -14,20 +16,7 @@ const AdminPanelHeader = ({ navbarIsOpen, burgerBtnHandler }) => {
             type='button'
             className={`${burgerClasses} text-white border border-2 rounded-md border-gray-400 hover:bg-orange-500 transition duration-200`}
           >
-            <svg
-              xmlns='http://www.w3.org/2000/svg'
-              className='h-10 w-10'
-              fill='none'
-              viewBox='0 0 24 24'
-              stroke='currentColor'
-            >
-              <path
-                strokeLinecap='round'
-                strokeLinejoin='round'
-                strokeWidth='2'
-                d='M4 6h16M4 12h16M4 18h16'
-              />
-            </svg>
+            <BurgerMenuIcon />
           </button>
         </div>
       </div>

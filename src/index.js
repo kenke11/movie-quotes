@@ -8,10 +8,10 @@ import App from 'App';
 import reportWebVitals from 'reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
 
-import 'i18next';
 import { AuthContextProvider } from 'store/auth-context';
-
 import MoviesReducer, { MovieReducer } from 'store/reducers/movieReducer';
+
+import './i18next';
 
 const composeEnhancers =
   process.env.NODE_ENV === 'development'
