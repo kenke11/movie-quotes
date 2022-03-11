@@ -83,19 +83,19 @@ const MovieUpdateForm = ({ movie }) => {
         );
 
         if (res.status === 200) {
-          await setMessageSuccess(res.data.message);
-          await setImgFile(undefined);
+          setMessageSuccess(res.data.message);
+          setImgFile(undefined);
         } else {
-          await setMessageError(res.data.message);
+          setMessageError(res.data.message);
         }
 
-        await setTimeout(() => {
+        setTimeout(() => {
           setMessageError('');
           setMessageSuccess('');
         }, 5000);
       } catch (error) {
-        await setMessageError('Something went wrong!');
-        await setTimeout(() => {
+        setMessageError('Something went wrong!');
+        setTimeout(() => {
           setMessageError('');
         }, 5000);
       }

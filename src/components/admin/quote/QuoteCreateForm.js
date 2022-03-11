@@ -62,12 +62,12 @@ const QuoteCreateForm = (props) => {
 
     if (formIsValid) {
       await props.CreateQuote(quote);
-      await setMessageSuccess('Quote created successfully!');
-      await setQuoteGe('');
-      await setQuoteEn('');
-      await setImgFile(undefined);
+      setMessageSuccess('Quote created successfully!');
+      setQuoteGe('');
+      setQuoteEn('');
+      setImgFile(undefined);
 
-      await setTimeout(() => {
+      setTimeout(() => {
         setMessageSuccess('');
       }, 5000);
     }

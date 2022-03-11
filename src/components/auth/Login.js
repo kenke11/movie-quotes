@@ -41,15 +41,15 @@ const Login = () => {
     );
 
     if (res.data.status === 200) {
-      const expirationTime = await new Date(
+      const expirationTime = new Date(
         new Date().getTime() + +res.data.expiresIn * 1000
       );
-      await authCtx.login(res.data.token, expirationTime.toISOString());
-      await navigate('/admin-panel', { replace: true });
+      authCtx.login(res.data.token, expirationTime.toISOString());
+      navigate('/admin-panel', { replace: true });
     }
 
-    await setEmail('');
-    await setPassword('');
+    setEmail('');
+    setPassword('');
   };
 
   return (

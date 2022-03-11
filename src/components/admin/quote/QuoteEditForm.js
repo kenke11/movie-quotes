@@ -84,13 +84,13 @@ const QuoteEditForm = ({ modalClose, quote }) => {
         );
 
         if (res.status === 200) {
-          await setMessageSuccess(res.data.message);
-          await setImgFile(undefined);
+          setMessageSuccess(res.data.message);
+          setImgFile(undefined);
         } else {
-          await setMessageError(res.data.message);
+          setMessageError(res.data.message);
         }
 
-        await setTimeout(() => {
+        setTimeout(() => {
           setMessageError('');
           setMessageSuccess('');
         }, 5000);

@@ -17,7 +17,7 @@ export const InitMovies = () => {
         withCredentials: true,
       });
 
-      await dispatch(setMovies(res.data));
+      dispatch(setMovies(res.data));
     } catch (error) {
       dispatch(fetchMoviesFail());
     }
@@ -37,7 +37,7 @@ export const DeleteMovie = (id) => {
       }
     );
 
-    await dispatch(removeMovie(id));
+    dispatch(removeMovie(id));
   };
 };
 
@@ -51,9 +51,9 @@ export const InitMovie = (id) => {
         }
       );
 
-      await dispatch(setMovie(id, res.data));
+      dispatch(setMovie(id, res.data));
     } catch (error) {
-      await dispatch(fetchMovieFail(error));
+      dispatch(fetchMovieFail(error));
     }
   };
 };
@@ -80,9 +80,9 @@ export const CreateQuote = (quote) => {
         }
       );
 
-      await dispatch(storeQuote(res.data));
+      dispatch(storeQuote(res.data));
     } catch (error) {
-      await dispatch(storeQuoteFail(error));
+      dispatch(storeQuoteFail(error));
     }
   };
 };
@@ -100,7 +100,7 @@ export const DeleteQuote = (id, movieId) => {
       }
     );
 
-    await dispatch(removeQuote(id, movieId));
+    dispatch(removeQuote(id, movieId));
   };
 };
 

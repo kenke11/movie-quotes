@@ -78,15 +78,15 @@ const MovieCreateForm = () => {
       );
 
       if (res.status === 200) {
-        await setMessageSuccess(res.data.message);
-        await setNameEn('');
-        await setNameGe('');
-        await setImgFile(undefined);
+        setMessageSuccess(res.data.message);
+        setNameEn('');
+        setNameGe('');
+        setImgFile(undefined);
       } else {
-        await setMessageError(res.data.message);
+        setMessageError(res.data.message);
       }
 
-      await setTimeout(() => {
+      setTimeout(() => {
         setMessageError('');
         setMessageSuccess('');
       }, 5000);
