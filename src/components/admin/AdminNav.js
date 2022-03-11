@@ -1,7 +1,6 @@
 import { useContext } from 'react';
 import { NavLink } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import classes from './AdminPanel.module.css';
 import AuthContext from 'store/auth-context';
 
 const AdminNav = ({ navbarIsOpen }) => {
@@ -16,7 +15,11 @@ const AdminNav = ({ navbarIsOpen }) => {
   const enBtn = i18n.language === 'en' ? ' bg-orange-500' : '';
   const geBtn = i18n.language === 'ge' ? ' bg-orange-500' : '';
 
-  const navClasses = [navbarIsOpen ? classes.navOpen : classes.navClosed];
+  const navClasses = [
+    navbarIsOpen
+      ? 'opacity-1 animate-[navOpen_0.5s_ease-in-out]'
+      : 'opacity-0 -z-50 animate-[navClose_1s_ease-in-out]',
+  ];
 
   const logoutHandler = () => {
     authCtx.logout();
@@ -24,7 +27,7 @@ const AdminNav = ({ navbarIsOpen }) => {
 
   return (
     <div
-      className={`${classes['nav-bar']} ${navClasses}  top-0 bottom-0 border-r border-gray-600 z-40`}
+      className={`bg-dark-blue text-white fixed flex flex-col transition duration-200 ease-out ${navClasses} top-0 bottom-0 border-r border-gray-600 z-40`}
     >
       <div className='border-b border-gray-700 px-5 py-5'>
         <h1 className='text-4xl font-serif font-bold'>
@@ -94,7 +97,8 @@ const AdminNav = ({ navbarIsOpen }) => {
             <NavLink
               to='movies'
               className={({ isActive }) =>
-                isActive ? classes['active-link'] : classes['link']
+                'flex align-center p-5 uppercase transition duration-200 hover:bg-gray-700 ' +
+                (isActive ? 'bg-gray-700' : ' ')
               }
             >
               <span>
@@ -119,7 +123,8 @@ const AdminNav = ({ navbarIsOpen }) => {
             <NavLink
               to='movie/create'
               className={({ isActive }) =>
-                isActive ? classes['active-link'] : classes['link']
+                'flex align-center p-5 uppercase transition duration-200 hover:bg-gray-700 ' +
+                (isActive ? 'bg-gray-700' : ' ')
               }
             >
               <span>

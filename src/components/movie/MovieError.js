@@ -1,4 +1,3 @@
-import classes from './MovieError.module.css';
 import { useEffect, useState } from 'react';
 
 const MovieError = () => {
@@ -11,7 +10,7 @@ const MovieError = () => {
 
   return (
     <>
-      {screenWidth && <div className={classes['bg-img']} />}
+      {screenWidth && <div className={'bg-img'} />}
       {!screenWidth && (
         <div>
           <div>

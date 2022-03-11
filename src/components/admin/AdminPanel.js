@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { Outlet } from 'react-router-dom';
-import classes from './AdminPanel.module.css';
 import AdminNav from 'components/admin/AdminNav';
 import AdminPanelHeader from 'components/admin/AdminPanelHeader';
 
@@ -12,7 +11,7 @@ const AdminPanel = () => {
   };
 
   return (
-    <div className={classes.wrapper}>
+    <div className='bg-dark-blue text-white min-h-screen align-center'>
       <AdminNav navbarIsOpen={navbarIsOpen} />
       <div>
         <AdminPanelHeader

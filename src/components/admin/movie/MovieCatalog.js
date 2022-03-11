@@ -1,4 +1,3 @@
-import classes from './MovieCatalog.module.css';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import i18n from 'i18next';
@@ -39,7 +38,7 @@ const MovieCatalog = (props) => {
       </div>
 
       <div
-        className={`${classes['calc-table']} rounded-md bg-gray-800 shadow overflow-x-auto border-b border-gray-600`}
+        className={`calc-table rounded-md bg-gray-800 shadow overflow-x-auto border-b border-gray-600`}
       >
         <table className='min-w-full divide-y divide-gray-900'>
           <thead>
